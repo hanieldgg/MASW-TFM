@@ -1,0 +1,7 @@
+{
+  "name": "entry-system-admin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

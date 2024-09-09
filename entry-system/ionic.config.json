@@ -1,0 +1,7 @@
+{
+  "name": "entry-system",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
