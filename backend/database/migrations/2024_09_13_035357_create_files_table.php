@@ -9,10 +9,14 @@ return new class extends Migration {
 	 * Run the migrations.
 	 */
 	public function up(): void {
-		Schema::create( 'entries', function (Blueprint $table) {
+		Schema::create( 'files', function (Blueprint $table) {
 			$table->id();
-			$table->string( 'title' );
-			$table->string( 'category' );
+
+			$table->string( 'file_name' );
+			$table->string( 'file_url' )->unique();
+
+			$table->foreignId( 'entry_id' )->constrained( 'entries' );
+
 			$table->timestamps();
 		} );
 	}
@@ -21,6 +25,6 @@ return new class extends Migration {
 	 * Reverse the migrations.
 	 */
 	public function down(): void {
-		Schema::dropIfExists( 'entries' );
+		Schema::dropIfExists( 'files' );
 	}
 };
