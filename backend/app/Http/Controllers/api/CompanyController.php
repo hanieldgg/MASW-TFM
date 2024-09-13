@@ -17,7 +17,7 @@ class CompanyController extends Controller {
 		if ( $companies->count() > 0 ) {
 			$data = [ 
 				'status' => 200,
-				'companies' => $companies
+				'data' => $companies
 			];
 			return response()->json( $data, 200 );
 		} else {
@@ -32,9 +32,9 @@ class CompanyController extends Controller {
 	public function create( Request $request ) {
 
 		$validator = Validator::make( $request->all(), [ 
-			'name' => 'required|string|max:30',
-			'address' => 'required|string|max:100',
-			'logo_url' => 'required|string|max:255',
+			'name' => [ 'required', 'string', 'max:30', Rule::unique( 'companies' ) ],
+			'address' => [ 'required', 'string', 'max:100' ],
+			'logo_url' => [ 'nullable', 'string', 'max:255' ]
 		] );
 
 		if ( $validator->fails() ) {
@@ -42,14 +42,6 @@ class CompanyController extends Controller {
 				'status' => 422,
 				'error' => $validator->messages()
 			], 422 );
-		}
-
-		$existingCompany = Company::where( 'name', $request->name )->first();
-		if ( $existingCompany ) {
-			return response()->json( [ 
-				'status' => 409,
-				'error' => 'A company with this name already exists.'
-			], 409 );
 		}
 
 		$company = Company::create( [ 
@@ -62,7 +54,7 @@ class CompanyController extends Controller {
 			return response()->json( [ 
 				'status' => 200,
 				'message' => 'Company successfully created',
-				'company' => $company
+				'data' => $company
 			], 200 );
 		} else {
 			return response()->json( [ 
@@ -78,7 +70,7 @@ class CompanyController extends Controller {
 		if ( $company ) {
 			$data = [ 
 				'status' => 200,
-				'company' => $company
+				'data' => $company
 			];
 			return response()->json( $data, 200 );
 		} else {
@@ -93,8 +85,8 @@ class CompanyController extends Controller {
 	public function update( Request $request, $id ) {
 		$validator = Validator::make( $request->all(), [ 
 			'name' => [ 'string', 'max:30', Rule::unique( 'companies' )->ignore( $id ) ],
-			'address' => [ 'string', 'max:100', Rule::unique( 'companies' )->ignore( $id ) ],
-			'logo_url' => [ 'string', 'max:255', Rule::unique( 'companies' )->ignore( $id ) ]
+			'address' => [ 'string', 'max:100' ],
+			'logo_url' => [ 'string', 'max:255' ]
 		] );
 
 		if ( $validator->fails() ) {
@@ -134,7 +126,7 @@ class CompanyController extends Controller {
 				return response()->json( [ 
 					'status' => 200,
 					'message' => 'Company updated',
-					'company' => $company
+					'data' => $company
 				], 200 );
 			} else {
 				return response()->json( [ 
@@ -146,6 +138,19 @@ class CompanyController extends Controller {
 	}
 
 	public function delete( $id ) {
+
+		/**
+		 * TODO: Implement reference for users
+		 */
+		// $referenced = EntryCategory::where( 'parent_id', $id )->exists();
+
+		// if ( $referenced ) {
+		// 	return response()->json( [ 
+		// 		'status' => 400,
+		// 		'message' => 'Cannot delete entry category because it is referenced by other records.',
+		// 	], 400 );
+		// }
+
 		$company = Company::find( $id );
 
 		if ( $company ) {

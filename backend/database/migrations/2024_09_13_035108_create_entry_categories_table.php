@@ -15,7 +15,8 @@ return new class extends Migration {
 			$table->string( 'title' )->unique();
 			$table->integer( 'price' );
 
-			$table->foreignId( 'parent_id' )->constrained( 'entry_categories' );
+			$table->foreignId( 'parent_id' )->nullable()->constrained( 'entry_categories' );
+			// $table->foreignId( 'parent_id' )->nullable()->constrained( 'entry_categories' )->onDelete( 'set null' );
 
 			$table->timestamps();
 		} );

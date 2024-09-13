@@ -14,7 +14,7 @@ return new class extends Migration {
 
 			$table->string( 'name' )->unique();
 			$table->string( 'address' );
-			$table->string( 'logo_url' );
+			$table->string( 'logo_url' )->nullable();
 
 			$table->timestamps();
 		} );

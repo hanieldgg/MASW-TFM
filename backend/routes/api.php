@@ -23,6 +23,15 @@ Route::delete( 'companies/{id}', [ CompanyController::class, 'delete' ] );
 
 
 
+// Entry Categories CRUD
+Route::get( 'entry-categories', [ EntryCategoryController::class, 'index' ] );
+Route::get( 'entry-categories/{id}', [ EntryCategoryController::class, 'find' ] );
+Route::post( 'entry-categories', [ EntryCategoryController::class, 'create' ] );
+Route::put( 'entry-categories/{id}', [ EntryCategoryController::class, 'update' ] );
+Route::delete( 'entry-categories/{id}', [ EntryCategoryController::class, 'delete' ] );
+
+
+
 // Entries CRUD
 Route::get( 'entries', [ EntryController::class, 'index' ] );
 // Route::get( 'entries/{id}', [ EntryController::class, 'find' ] );
