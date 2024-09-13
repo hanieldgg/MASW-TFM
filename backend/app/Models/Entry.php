@@ -12,6 +12,14 @@ class Entry extends Model {
 
 	protected $fillable = [ 
 		'title',
-		'category',
+		'payment_status',
+		'judgement_status',
+		'date_created',
+		'score',
+		'winner_status',
+		'description',
+		'user_id',
+		'order_id',
+		'entry_category_id',
 	];
 }
