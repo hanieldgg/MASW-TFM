@@ -1,0 +1,21 @@
+<ion-accordion value="{{ key }}">
+    <ion-item slot="header" color="light">
+        <ion-label>{{ year }}</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+        <ion-accordion-group>
+            <app-accordion-payment-status
+                [key]="0"
+                [status]="'Paid Entries'"
+            ></app-accordion-payment-status>
+            <app-accordion-payment-status
+                [key]="1"
+                [status]="'Awaiting Check'"
+            ></app-accordion-payment-status>
+            <app-accordion-payment-status
+                [key]="2"
+                [status]="'Not Paid'"
+            ></app-accordion-payment-status>
+        </ion-accordion-group>
+    </div>
+</ion-accordion>
