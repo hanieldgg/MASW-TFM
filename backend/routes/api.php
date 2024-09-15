@@ -34,7 +34,7 @@ Route::delete( 'entry-categories/{id}', [ EntryCategoryController::class, 'delet
 
 // Entries CRUD
 Route::get( 'entries', [ EntryController::class, 'index' ] );
-// Route::get( 'entries/{id}', [ EntryController::class, 'find' ] );
-// Route::post( 'entries', [ EntryController::class, 'create' ] );
-// Route::put( 'entries/{id}', [ EntryController::class, 'update' ] );
-// Route::delete( 'entries/{id}', [ EntryController::class, 'delete' ] );
+Route::get( 'entries/{id}', [ EntryController::class, 'find' ] );
+Route::post( 'entries', [ EntryController::class, 'create' ] );
+Route::put( 'entries/{id}', [ EntryController::class, 'update' ] );
+Route::delete( 'entries/{id}', [ EntryController::class, 'delete' ] );

@@ -16,13 +16,16 @@ return new class extends Migration {
 			$table->string( 'title' );
 			$table->string( 'payment_status' );
 			$table->string( 'judgement_status' );
-			$table->timestamp( 'date_created' );
-			$table->integer( 'score' );
+			$table->integer( 'score' )->nullable();
 			$table->string( 'winner_status' );
-			$table->text( 'description' );
+			$table->text( 'description' )->nullable();
 
-			$table->foreignId( 'user_id' )->constrained( 'users' );
-			$table->foreignId( 'order_id' )->constrained( 'orders' );
+			/**
+			 * TODO: Remove nullable from user_id
+			 */
+			// $table->foreignId( 'user_id' )->constrained( 'users' );
+			$table->foreignId( 'user_id' )->integer();
+			$table->foreignId( 'order_id' )->nullable()->constrained( 'orders' );
 			$table->foreignId( 'entry_category_id' )->constrained( 'entry_categories' );
 
 			$table->timestamps();
