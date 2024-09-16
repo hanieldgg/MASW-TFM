@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Validator;
 class EntryCategoryController extends Controller {
 
 	public function index() {
-		$entryCategories = EntryCategory::all();
+		// $entryCategories = EntryCategory::all();
+		$entryCategories = EntryCategory::whereNull( 'parent_id' )->get();
 
 		if ( $entryCategories->count() > 0 ) {
 			$data = [ 
@@ -67,10 +68,18 @@ class EntryCategoryController extends Controller {
 		$entryCategory = EntryCategory::find( $id );
 
 		if ( $entryCategory ) {
+
 			$data = [ 
 				'status' => 200,
 				'data' => $entryCategory
 			];
+
+			$children = EntryCategory::where( 'parent_id', $id )->get();
+
+			if ( $children ) {
+				$entryCategory['children'] = $children;
+			}
+
 			return response()->json( $data, 200 );
 		} else {
 			$data = [ 

@@ -1,0 +1,346 @@
+title,parent,main,price
+911. Team’s Body of Work Achievement,Team Achievement,Achievement,250
+901. Individual’s Body of Work Achievement,Individual Achievement,Achievement,250
+668. Outstanding Production,Podcast,Video/Audio,125
+667. Outstanding Guest(s),Podcast,Video/Audio,125
+666. Outstanding Host(s),Podcast,Video/Audio,125
+664c. Medical Series,Podcast,Video/Audio,195
+663c. Marketing Product/Service Series,Podcast,Video/Audio,195
+662c. Internal Communication Series,Podcast,Video/Audio,195
+661c. Informational Series,Podcast,Video/Audio,195
+660c. Industry Focused Series,Podcast,Video/Audio,195
+659c. Entertainment Series,Podcast,Video/Audio,195
+658c. Educational Series,Podcast,Video/Audio,195
+656. Medical Single Episode,Podcast,Video/Audio,125
+655. Marketing Product/Service Single Episode,Podcast,Video/Audio,125
+654. Internal Communication Single Episode,Podcast,Video/Audio,125
+653. Informational Single Episode,Podcast,Video/Audio,125
+652. Industry Focused Single Episode,Podcast,Video/Audio,125
+651. Entertainment Single Episode,Podcast,Video/Audio,125
+650. Educational Single Episode,Podcast,Video/Audio,125
+632c. Series,Digital Video Creation,Video/Audio,195
+621c. Series,Video/Film,Video/Audio,195
+602c. Series,Television,Video/Audio,195
+498c. Series,Web Video,Video/Audio,195
+325. Media Kit,Design,Creativity (Print or Digital),125
+319. Infographic,Design,Creativity (Print or Digital),125
+294c. Medical Series,Blog,Publications,195
+293c. Internal Communication Series,Blog,Publications,195
+292c. Informational Series,Blog,Publications,195
+291c. Industry Focused Series,Blog,Publications,195
+290c. Entertainment Series,Blog,Publications,195
+289c. Educational Series,Blog,Publications,195
+288c. Product/Service Series,Blog,Publications,195
+286. Medical Single Post,Blog,Publications,125
+285. Internal Communication Single Post,Blog,Publications,125
+284. Informational Single Post,Blog,Publications,125
+283. Industry Focused Single Post,Blog,Publications,125
+282. Entertainment Single Post,Blog,Publications,125
+281. Educational Single Post,Blog,Publications,125
+280. Product/Service Single Post,Blog,Publications,125
+266. Nonprofit,External Newsletter,Publications,125
+265. Industry,External Newsletter,Publications,125
+264. Healthcare,External Newsletter,Publications,125
+263. Government,External Newsletter,Publications,125
+262. Educational Institution,External Newsletter,Publications,125
+261. Corporate,External Newsletter,Publications,125
+260. Association,External Newsletter,Publications,125
+275. Thought Leadership,Book (Business Related),Publications,125
+274. Motivational,Book (Business Related),Publications,125
+273. Marketing,Book (Business Related),Publications,125
+272. Educational,Book (Business Related),Publications,125
+271. Company History,Book (Business Related),Publications,125
+270. Biography,Book (Business Related),Publications,125
+109c. Viral Marketing Campaign,Marketing/Promotion Campaign,Strategic Communications,195
+67c. HR Campaign,Email Communication,Advertising/Marketing,195
+66c. Email Campaign,Email Communication,Advertising/Marketing,195
+65. Products,Email Communication,Advertising/Marketing,125
+64. Marketing,Email Communication,Advertising/Marketing,125
+63. Curated Content,Email Communication,Advertising/Marketing,125
+62. Company Information,Email Communication,Advertising/Marketing,125
+61. Benefits,Email Communication,Advertising/Marketing,125
+60. Announcements,Email Communication,Advertising/Marketing,125
+57. Social Media Marketing Campaign $195),Online,Advertising/Marketing,125
+56. SEM Campaign ( $195),Online,Advertising/Marketing,125
+55. Video Ad,Online,Advertising/Marketing,125
+54. Pre-Roll Video Ad,Online,Advertising/Marketing,125
+53. Native Advertising (Sponsored Posts),Online,Advertising/Marketing,125
+52. Display Ad Video or Animated,Online,Advertising/Marketing,125
+51. Display Ad,Online,Advertising/Marketing,125
+50. Display Ad Campaign,Online,Advertising/Marketing,195
+304. Annual Report / CSR Interior,Design,Creativity (Print or Digital),125
+305. Benefits/HR Materials,Design,Creativity (Print or Digital),125
+308. Brochure,Design,Creativity (Print or Digital),125
+307. Brochure Cover,Design,Creativity (Print or Digital),125
+309. Business Card,Design,Creativity (Print or Digital),125
+310. Calendar,Design,Creativity (Print or Digital),125
+311. Cartoon,Design,Creativity (Print or Digital),125
+312. Direct Mail,Direct Mail,Advertising/Marketing,125
+316. Holiday Card,Design,Creativity (Print or Digital),125
+37. Poster,Marketing/Promotion/Materials,Advertising/Marketing,125
+34. Invitation,Marketing/Promotion/Materials,Advertising/Marketing,125
+32. Guide,Marketing/Promotion/Materials,Advertising/Marketing,125
+9. Mall/Airport/Station,Ads,Advertising/Marketing,125
+33. Holiday Card,Marketing/Promotion/Materials,Advertising/Marketing,125
+31. Calendar,Marketing/Promotion/Materials,Advertising/Marketing,125
+30. Book,Marketing/Promotion/Materials,Advertising/Marketing,125
+36. Postcard,Marketing/Promotion/Materials,Advertising/Marketing,125
+38. Promotional Item,Marketing/Promotion/Materials,Advertising/Marketing,125
+303. Annual Report / CSR Cover,Design,Creativity (Print or Digital),125
+10. Newspaper,Ads,Advertising/Marketing,125
+302. Annual Report / CSR,Design,Creativity (Print or Digital),125
+300. Ad,Design,Creativity (Print or Digital),125
+39. Specialty Item,Marketing/Promotion/Materials,Advertising/Marketing,125
+40. T-Shirt,Marketing/Promotion/Materials,Advertising/Marketing,125
+224. Recruitment,Brochure,Publications,125
+225. Sales Promotion,Brochure,Publications,125
+226. Special Events,Brochure,Publications,125
+227. Viewbook,Brochure,Publications,125
+6. Door Hanger,Ads,Advertising/Marketing,125
+240. Benefits,Employee Publication,Publications,125
+223. Public Relations,Brochure,Publications,125
+222. Pamphlet,Brochure,Publications,125
+221. Nonprofit,Brochure,Publications,125
+220. Newspaper Supplement,Brochure,Publications,125
+219. Informational,Brochure,Publications,125
+218. Handbook,Brochure,Publications,125
+5. Business/Trade Publication,Ads,Advertising/Marketing,125
+217. Fund Raising,Brochure,Publications,125
+216. Educational,Brochure,Publications,125
+215. Consumer Awareness,Brochure,Publications,125
+241c. Benefits Campaign,Employee Publication,Publications,195
+242. Internal Communication,Employee Publication,Publications,125
+8. Magazine,Ads,Advertising/Marketing,125
+258. Trade,Magazine,Publications,125
+257. Special Edition,Magazine,Publications,125
+256. Nonprofit,Magazine,Publications,125
+255. Industry,Magazine,Publications,125
+254. Government,Magazine,Publications,125
+253. Educational Institution,Magazine,Publications,125
+252. Corporate,Magazine,Publications,125
+251. Consumer,Magazine,Publications,125
+243. Internal Magazine,Employee Publication,Publications,125
+244. Internal Newsletter,Employee Publication,Publications,125
+245. Manual/Training,Employee Publication,Publications,125
+246. Special Edition,Employee Publication,Publications,125
+250. Association,Magazine,Publications,125
+7. Flyer,Ads,Advertising/Marketing,125
+646c. Ad Campaign,Audio/Radio,Video/Audio,195
+645. Single Spot,Audio/Radio,Video/Audio,125
+642c. PSA Campaign,Audio/Radio,Video/Audio,195
+641. PSA,Audio/Radio,Video/Audio,125
+210. Business to Business,Brochure,Publications,125
+644. Radio Promotion,Audio/Radio,Video/Audio,125
+643. Radio Program,Audio/Radio,Video/Audio,125
+214. Company Overview,Brochure,Publications,125
+213. Catalog,Brochure,Publications,125
+212. Capabliities,Brochure,Publications,125
+211. Business to Consumer,Brochure,Publications,125
+910. Team’s Specific Project Achievement,Team Achievement,Achievement,250
+900. Individual’s Specific Project Achievement,Individual Achievement,Achievement,250
+611. Fund Raiser,Video/Film,Video/Audio,125
+612. Government,Video/Film,Video/Audio,125
+613. Informational,Video/Film,Video/Audio,125
+614. Internal Communication,Video/Film,Video/Audio,125
+615. Marketing (Product or Service),Video/Film,Video/Audio,125
+616. Medical,Video/Film,Video/Audio,125
+610. Educational Institution,Video/Film,Video/Audio,125
+609. Documentary,Video/Film,Video/Audio,125
+608. Corporate Image,Video/Film,Video/Audio,125
+206. Nonprofit,Annual Report,Publications,125
+606c. Ad Campaign,Television,Video/Audio,195
+605. Single Spot,Television,Video/Audio,125
+604c. PSA Campaign,Television,Video/Audio,195
+603. PSA,Television,Video/Audio,125
+4. Billboard,Ads,Advertising/Marketing,125
+207. Utility,Annual Report,Publications,125
+617. Meeting Open/Close,Video/Film,Video/Audio,125
+640. Original Music,Audio/Radio,Video/Audio,125
+634. Virtual / Augmented / Mixed Reality,Digital Video Creation,Video/Audio,125
+633. Virtual Tour,Digital Video Creation,Video/Audio,125
+635. White Board Video,Digital Video Creation,Video/Audio,125
+631. Motion Graphic Video,Digital Video Creation,Video/Audio,125
+630. Animation,Digital Video Creation,Video/Audio,125
+624. Video Script,Video/Film,Video/Audio,125
+623. Training,Video/Film,Video/Audio,125
+622. Special Event,Video/Film,Video/Audio,125
+620. Recruitment,Video/Film,Video/Audio,125
+619. Powerpoint Presentation,Video/Film,Video/Audio,125
+618. Nonprofit,Video/Film,Video/Audio,125
+601. Promotion,Television,Video/Audio,125
+600. Program,Television,Video/Audio,125
+379. Web Content,Writing,Creativity (Print or Digital),125
+364. Blog Single Post,Writing,Creativity (Print or Digital),125
+363. Blog Overall,Writing,Creativity (Print or Digital),125
+205. Medical,Annual Report,Publications,125
+336. Social Media Site,Design,Creativity (Print or Digital),125
+204. Government,Annual Report,Publications,125
+328. Mobile Website,Design,Creativity (Print or Digital),125
+327c. Mobile App,Design,Creativity (Print or Digital),195
+313. E-Communication,Design,Creativity (Print or Digital),125
+306. Blog,Design,Creativity (Print or Digital),125
+339. Website,Design,Creativity (Print or Digital),125
+342. Website Redesign,Design,Creativity (Print or Digital),125
+340. Website Home Page,Design,Creativity (Print or Digital),125
+338. Web Interactive Capabilities,Design,Creativity (Print or Digital),125
+315. Graphics,Design,Creativity (Print or Digital),125
+301. Animation,Design,Creativity (Print or Digital),125
+"314c. Games, Contests",Design,Creativity (Print or Digital),195
+341. Website Interior,Design,Creativity (Print or Digital),125
+478. Microsite Information,Web Element,Video/Audio,125
+479. Microsite Product,Web Element,Video/Audio,125
+470. E-Commerce,Web Element,Video/Audio,125
+471c. E-Learning,Web Element,Video/Audio,195
+472c. Games/Contests,Web Element,Video/Audio,195
+474. Infographic,Web Element,Video/Audio,125
+477. Microsite Event,Web Element,Video/Audio,125
+481. Portal,Web Element,Video/Audio,125
+480. Podcast,Web Element,Video/Audio,125
+475. Intranet,Web Element,Video/Audio,125
+200. Association,Annual Report,Publications,125
+476. Landing Page,Web Element,Video/Audio,125
+473. Home Page,Web Element,Video/Audio,125
+201. Corporation,Annual Report,Publications,125
+482. Streaming Video,Web Element,Video/Audio,125
+483. Web-based Training,Web Element,Video/Audio,125
+203. Educational Institution,Annual Report,Publications,125
+500. YouTube Video,Web Video,Video/Audio,125
+499. Training,Web Video,Video/Audio,125
+497. Self Promotion,Web Video,Video/Audio,125
+496. Overview,Web Video,Video/Audio,125
+494. Medical,Web Video,Video/Audio,125
+493. Marketing,Web Video,Video/Audio,125
+490. Educational,Web Video,Video/Audio,125
+491. Event,Web Video,Video/Audio,125
+495. Nonprofit,Web Video,Video/Audio,125
+202. Corporate Social Responsibility,Annual Report,Publications,125
+492. Informational,Web Video,Video/Audio,125
+461. Social Video,Social Media,Video/Audio,125
+459. Social Content,Social Media,Video/Audio,125
+457c. Social Branding Campaign,Social Media,Video/Audio,195
+460c. Social Engagement,Social Media,Video/Audio,195
+456c. Social Ad Campaign,Social Media,Video/Audio,195
+458c. Social Campaign,Social Media,Video/Audio,195
+444. Mobile/Other,Mobile App/Web,Video/Audio,125
+443. Mobile Experience Information,Mobile App/Web,Video/Audio,125
+451. Facebook Site,Social Media,Video/Audio,125
+450. Facebook Engagement,Social Media,Video/Audio,125
+455. LinkedIn Site,Social Media,Video/Audio,125
+464. YouTube Video,Social Media,Video/Audio,125
+452. Influencer Content,Social Media,Video/Audio,125
+453. Instagram Engagement,Social Media,Video/Audio,125
+454. Instagram Site,Social Media,Video/Audio,125
+23c. Direct Mail Campaign,Direct Mail,Advertising/Marketing,195
+462. Twitter Engagement,Social Media,Video/Audio,125
+463. Twitter Site,Social Media,Video/Audio,125
+404. Corporation,Website,Video/Audio,125
+405. Educational Institution,Website,Video/Audio,125
+406. Entertainment,Website,Video/Audio,125
+407. Event,Website,Video/Audio,125
+408. Financial Services,Website,Video/Audio,125
+409. Government,Website,Video/Audio,125
+410. Informational,Website,Video/Audio,125
+411. Legal,Website,Video/Audio,125
+24. Flyer,Direct Mail,Advertising/Marketing,125
+401. Benefits,Website,Video/Audio,125
+155. Television Placement,Media Relations/Publicity,Strategic Communications,125
+154c. Publicity Campaign,Media Relations/Publicity,Strategic Communications,195
+151c. Media Response,Media Relations/Publicity,Strategic Communications,195
+402. Business to Business,Website,Video/Audio,125
+403. Business to Consumer,Website,Video/Audio,125
+418. Redesign (upload old site as document),Website,Video/Audio,125
+400. Association,Website,Video/Audio,125
+412. Manufacturer,Website,Video/Audio,125
+"413. Marketing, PR, Advertising Agency",Website,Video/Audio,125
+21. Brochure,Direct Mail,Advertising/Marketing,125
+3. Bench/Shelter/Mass Transit,Ads,Advertising/Marketing,125
+25. Postcard,Direct Mail,Advertising/Marketing,125
+433c. App for Training/Learning,Mobile App/Web,Video/Audio,195
+434c. App for Product,Mobile App/Web,Video/Audio,195
+435c. App for Service,Mobile App/Web,Video/Audio,195
+440. Mobile Website Company,Mobile App/Web,Video/Audio,125
+441. Mobile Website Service,Mobile App/Web,Video/Audio,125
+442. Mobile Buying Experience,Mobile App/Web,Video/Audio,125
+432c. App for Information,Mobile App/Web,Video/Audio,195
+431c. App for Entertainment,Mobile App/Web,Video/Audio,195
+414. Medical,Website,Video/Audio,125
+415. Municipality,Website,Video/Audio,125
+416. Nonprofit,Website,Video/Audio,125
+417. Professional Service,Website,Video/Audio,125
+419. Small Business,Website,Video/Audio,125
+420. Tourism,Website,Video/Audio,125
+430c. App for Business,Mobile App/Web,Video/Audio,195
+126c. Research/Study,Communications/Public Relations,Strategic Communications,195
+20. Bill Insert,Direct Mail,Advertising/Marketing,125
+125c. Public Relations Program,Communications/Public Relations,Strategic Communications,195
+124c. Internal Communication Campaign,Communications/Public Relations,Strategic Communications,195
+123c. Crisis Communication Plan/Response,Communications/Public Relations,Strategic Communications,195
+122c. Corporate Social Responsibility,Communications/Public Relations,Strategic Communications,195
+121c. Communication Program,Communications/Public Relations,Strategic Communications,195
+120c. Communication Plan,Communications/Public Relations,Strategic Communications,195
+127c. Social Media Campaign,Communications/Public Relations,Strategic Communications,195
+128c. Special Event,Communications/Public Relations,Strategic Communications,195
+152. Newspaper Placement,Media Relations/Publicity,Strategic Communications,125
+22. Catalog,Direct Mail,Advertising/Marketing,125
+150. Magazine Placement,Media Relations/Publicity,Strategic Communications,125
+153. Online Placement,Media Relations/Publicity,Strategic Communications,125
+142c. Special Event,Media Kit,Strategic Communications,195
+141c. Product/Service Launch,Media Kit,Strategic Communications,195
+140c. Marketing/Promotion,Media Kit,Strategic Communications,195
+361. Advertorial,Writing,Creativity (Print or Digital),125
+362. Annual Report/CSR,Writing,Creativity (Print or Digital),125
+365. Brand Journalism,Writing,Creativity (Print or Digital),125
+369. Editorial,Writing,Creativity (Print or Digital),125
+15. Trade Show Exhibit,Ads,Advertising/Marketing,125
+366. Brochure,Writing,Creativity (Print or Digital),125
+367. Column,Writing,Creativity (Print or Digital),125
+368. Communication Plan,Writing,Creativity (Print or Digital),125
+360. Ad Copy,Writing,Creativity (Print or Digital),125
+376. Speech,Writing,Creativity (Print or Digital),125
+350. Advertising,Photography,Creativity (Print or Digital),125
+351. Annual Report,PublicationsPhotography,Creativity (Print or Digital),125
+14. Poster,Ads,Advertising/Marketing,125
+352. Brochure,Photography,Creativity (Print or Digital),125
+353. Calendar,Photography,Creativity (Print or Digital),125
+354. Magazine,Photography,Creativity (Print or Digital),125
+355. People/Portrait,Photography,Creativity (Print or Digital),125
+356. Product,Photography,Creativity (Print or Digital),125
+370. Feature Article,Writing,Creativity (Print or Digital),125
+371. Magazine,Writing,Creativity (Print or Digital),125
+103c. Digital Marketing,Marketing/Promotion Campaign,Strategic Communications,195
+104c. Integrated Marketing,Marketing/Promotion Campaign,Strategic Communications,195
+105c. Product Launch,Marketing/Promotion Campaign,Strategic Communications,195
+1c. Advertising Campaign,Ads,Advertising/Marketing,195
+106c. Promotion/Marketing Materials,Marketing/Promotion Campaign,Strategic Communications,195
+107c. Self Promotion,Marketing/Promotion Campaign,Strategic Communications,195
+108c. Special Event,Marketing/Promotion Campaign,Strategic Communications,195
+102c. Branding Refresh,Marketing/Promotion Campaign,Strategic Communications,195
+101c. Branding,Marketing/Promotion Campaign,Strategic Communications,195
+372. Marketing Material,Writing,Creativity (Print or Digital),125
+373. News Article,Writing,Creativity (Print or Digital),125
+375. Newsletter,Writing,Creativity (Print or Digital),125
+374. News Release,Writing,Creativity (Print or Digital),125
+377. Technical,Writing,Creativity (Print or Digital),125
+378. White Paper,Writing,Creativity (Print or Digital),125
+100c. Benefits/HR Materials,Marketing/Promotion Campaign,Strategic Communications,195
+324. Magazine Interior,Design,Creativity (Print or Digital),125
+323. Magazine Cover,Design,Creativity (Print or Digital),125
+322. Magazine,Design,Creativity (Print or Digital),125
+321. Logo,Design,Creativity (Print or Digital),125
+317. Identity Suite,Design,Creativity (Print or Digital),125
+320. Invitation,Design,Creativity (Print or Digital),125
+318. Illustration/Graphic Design,Creativity (Print or Digital)Design,Creativity (Print or Digital),125
+11. Newspaper Insert,Ads,Advertising/Marketing,125
+2. Banner/Sign,Ads,Advertising/Marketing,125
+35. Media Kit,Marketing/Promotion/Materials,Advertising/Marketing,125
+326. Menu,Design,Creativity (Print or Digital),125
+337. T-Shirt,Design,Creativity (Print or Digital),125
+334. Program Guide,Design,Creativity (Print or Digital),125
+333. Poster,Design,Creativity (Print or Digital),125
+332. Postcard,Design,Creativity (Print or Digital),125
+331. Packaging,Design,Creativity (Print or Digital),125
+335. Promotional Item,Design,Creativity (Print or Digital),125
+330. Newsletter Cover,Design,Creativity (Print or Digital),125
+13. Point of Purchase,Ads,Advertising/Marketing,125
+329. Newsletter,Design,Creativity (Print or Digital),125
+12. Outdoor,Ads,Advertising/Marketing,125

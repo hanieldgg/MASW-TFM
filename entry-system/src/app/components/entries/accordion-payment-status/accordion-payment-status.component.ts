@@ -10,6 +10,7 @@ import { IonicModule } from '@ionic/angular';
 })
 export class AccordionPaymentStatusComponent implements OnInit {
     @Input() status: string = '';
+    @Input() total_entries: number = 0;
     @Input() key: number = 0;
 
     constructor() {}

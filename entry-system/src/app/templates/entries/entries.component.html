@@ -3,20 +3,29 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Entries</ion-title>
+        <ion-title>My Entries</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding" [fullscreen]="true">
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-title size="large">Entries</ion-title>
+            <ion-title size="large">My Entries</ion-title>
         </ion-toolbar>
     </ion-header>
 
     <div id="container">
         <ion-accordion-group>
-            <app-accordion-year [key]="0" [year]="'2024'"></app-accordion-year>
+            <app-accordion-year
+                [key]="0"
+                [year]="2024"
+                [total_entries]="1"
+            ></app-accordion-year>
+            <app-accordion-year
+                [key]="1"
+                [year]="2023"
+                [total_entries]="10"
+            ></app-accordion-year>
         </ion-accordion-group>
     </div>
 </ion-content>

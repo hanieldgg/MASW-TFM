@@ -11,7 +11,8 @@ import { AccordionPaymentStatusComponent } from '../accordion-payment-status/acc
     imports: [IonicModule, AccordionPaymentStatusComponent],
 })
 export class AccordionYearComponent implements OnInit {
-    @Input() year: string = '';
+    @Input() year: number = 0;
+    @Input() total_entries: number = 0;
     @Input() key: number = 0;
 
     constructor() {}

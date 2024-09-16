@@ -11,7 +11,10 @@ import { CommonModule } from '@angular/common';
     standalone: true,
 })
 export class MenuComponent implements OnInit {
-    public appPages = [{ title: 'Entries', url: '/entries', icon: 'reader' }];
+    public appPages = [
+        { title: 'Enter Now', url: '/enter', icon: 'star' },
+        { title: 'My Entries', url: '/entries', icon: 'reader' },
+    ];
 
     constructor() {}
 

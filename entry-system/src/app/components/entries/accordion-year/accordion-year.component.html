@@ -1,20 +1,23 @@
 <ion-accordion value="{{ key }}">
     <ion-item slot="header" color="light">
-        <ion-label>{{ year }}</ion-label>
+        <ion-label>{{ year }} ({{ total_entries }})</ion-label>
     </ion-item>
     <div class="ion-padding" slot="content">
         <ion-accordion-group>
             <app-accordion-payment-status
                 [key]="0"
-                [status]="'Paid Entries'"
+                [total_entries]="3"
+                [status]="'Judged Entries'"
             ></app-accordion-payment-status>
             <app-accordion-payment-status
                 [key]="1"
-                [status]="'Awaiting Check'"
+                [total_entries]="2"
+                [status]="'Paid Entries'"
             ></app-accordion-payment-status>
             <app-accordion-payment-status
                 [key]="2"
-                [status]="'Not Paid'"
+                [total_entries]="1"
+                [status]="'Unpaid Entries'"
             ></app-accordion-payment-status>
         </ion-accordion-group>
     </div>

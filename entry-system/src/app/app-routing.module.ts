@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+
 import { EntriesComponent } from './templates/entries/entries.component';
+import { EnterComponent } from './templates/enter/enter.component';
 
 const routes: Routes = [
     {
@@ -11,6 +13,10 @@ const routes: Routes = [
     {
         path: 'entries',
         component: EntriesComponent,
+    },
+    {
+        path: 'enter',
+        component: EnterComponent,
     },
 ];
 

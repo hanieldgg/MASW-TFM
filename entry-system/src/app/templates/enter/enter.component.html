@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Enter</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">Enter</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <div id="container">
+        @for(entry of entries; track $index ){
+        <app-enter-card [entry]="entry"></app-enter-card>
+
+        @if( $index != 0 ){
+        <ion-button color="danger" (click)="removeEntry($index)">
+            Remove Entry
+            <ion-icon slot="end" name="trash"></ion-icon>
+        </ion-button>
+        } }
+
+        <div id="buttons">
+            <div class="left">
+                <ion-button color="warning" (click)="addNewEntry()">
+                    Add Entry
+                    <ion-icon slot="end" name="add"></ion-icon>
+                </ion-button>
+            </div>
+            <div class="right">
+                <ion-button color="medium">
+                    Save Changes
+                    <ion-icon slot="end" name="save"></ion-icon>
+                </ion-button>
+                <ion-button>
+                    Continue
+                    <ion-icon slot="end" name="arrow-forward"></ion-icon>
+                </ion-button>
+            </div>
+        </div>
+    </div>
+</ion-content>
