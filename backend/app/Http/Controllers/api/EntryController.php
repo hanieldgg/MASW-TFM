@@ -31,50 +31,73 @@ class EntryController extends Controller {
 
 	public function create( Request $request ) {
 
-		$validator = Validator::make( $request->all(), [ 
-			'title' => [ 'required', 'string', 'max:30' ],
-			'entry_category' => [ 'required', 'numeric', Rule::exists( 'entry_categories', 'id' ) ],
-			'description' => [ 'string', 'max:255' ],
-		] );
+		$entries = $request->entries;
 
-		if ( $validator->fails() ) {
-			return response()->json( [ 
-				'status' => 422,
-				'error' => $validator->messages()
-			], 422 );
-		}
+		if ( $entries ) {
 
-		$args = [ 
-			'title' => $request->title,
-			'entry_category_id' => $request->entry_category,
-		];
+			$created_entries = [];
 
-		if ( $request->has( 'description' ) ) {
-			$args['description'] = trim( $request->description );
-		}
+			foreach ( $entries as $entry ) {
 
-		/**
-		 * TODO: Connect user_id
-		 */
-		$args['user_id'] = 1;
-		$args['payment_status'] = "unpaid";
-		$args['judgement_status'] = "to_be";
-		$args['score'] = 0;
-		$args['winner_status'] = "none";
 
-		$entry = Entry::create( $args );
+				$validator = Validator::make( $entry, [ 
+					'title' => [ 'required', 'string', 'max:30' ],
+					'entry_category' => [ 'required', 'numeric', Rule::exists( 'entry_categories', 'id' ) ],
+					'description' => [ 'nullable', 'string', 'max:255' ],
+				] );
 
-		if ( $entry ) {
-			return response()->json( [ 
-				'status' => 200,
-				'message' => 'Entry successfully created',
-				'data' => $entry
-			], 200 );
+				if ( $validator->fails() ) {
+					return response()->json( [ 
+						'status' => 422,
+						'error' => $validator->messages()
+					], 422 );
+				}
+
+				$args = [ 
+					'title' => $entry['title'],
+					'entry_category_id' => $entry['entry_category'],
+				];
+
+				if ( isset( $entry['description'] ) ) {
+					$args['description'] = trim( $entry['description'] );
+				}
+
+				/**
+				 * TODO: Connect user_id
+				 */
+				$args['user_id'] = 1;
+				$args['payment_status'] = "unpaid";
+				$args['judgement_status'] = "to_be";
+				$args['score'] = 0;
+				$args['winner_status'] = "none";
+
+				$entry = Entry::create( $args );
+
+				if ( $entry ) {
+					$created_entries[] = $entry;
+				}
+			}
+
+			if ( $created_entries && sizeof( $created_entries ) > 0 ) {
+
+				return response()->json( [ 
+					'status' => 200,
+					'message' => 'Entry successfully created',
+					'data' => $created_entries
+				], 200 );
+
+			} else {
+				return response()->json( [ 
+					'status' => 500,
+					'error' => 'Something went wrong'
+				], 500 );
+			}
+
 		} else {
 			return response()->json( [ 
-				'status' => 500,
-				'error' => 'Something went wrong'
-			], 500 );
+				'status' => 400,
+				'error' => 'Bad Request'
+			], 422 );
 		}
 	}
 
@@ -164,6 +187,98 @@ class EntryController extends Controller {
 			$data = [ 
 				'status' => 404,
 				'message' => 'No entry found'
+			];
+			return response()->json( $data, 404 );
+		}
+	}
+
+	public function indexByUser( $userID ) {
+
+		$entries = Entry::where( 'user_id', $userID )->get();
+
+		if ( $entries->count() > 0 ) {
+
+			$entries = $entries->toArray();
+			$entries_dates = array_column( $entries, 'created_at' );
+
+			$entries_response = array();
+
+			foreach ( $entries_dates as $dateKey => $date ) {
+
+				$time = strtotime( $date );
+				$year = date( "Y", $time );
+
+				if ( ! array_key_exists( $year, $entries_response ) ) {
+					$entries_response[ $year ] = array(
+						'winner' => array(),
+						'paid' => array(),
+						'unpaid' => array(),
+					);
+				}
+			}
+
+			foreach ( $entries as $entryKey => $entry ) {
+
+				$entry_year = date( "Y", strtotime( $entry['created_at'] ) );
+				$winner_status = $entry['winner_status'];
+				$judgement_status = $entry['judgement_status'];
+				$payment_status = $entry['payment_status'];
+
+				if (
+					$payment_status == 'paid' &&
+					$judgement_status == 'judged' &&
+					$winner_status != 'none'
+				) {
+					array_push( $entries_response[ $entry_year ]['winner'], $entry );
+				}
+
+				if (
+					$payment_status == 'paid' &&
+					$winner_status == 'none'
+				) {
+					array_push( $entries_response[ $entry_year ]['paid'], $entry );
+				}
+
+				if (
+					$payment_status == 'unpaid'
+				) {
+					array_push( $entries_response[ $entry_year ]['unpaid'], $entry );
+				}
+
+			}
+
+			$data = [ 
+				'status' => 200,
+				'data' => $entries_response
+			];
+
+			return response()->json( $data, 200 );
+		} else {
+			$data = [ 
+				'status' => 404,
+				'message' => 'No entries found'
+			];
+			return response()->json( $data, 404 );
+		}
+	}
+
+	public function indexUnpaidEntries( $userID ) {
+
+		$entries = Entry::where( 'user_id', $userID )->where( 'payment_status', 'unpaid' )->get();
+
+		if ( $entries->count() > 0 ) {
+
+
+			$data = [ 
+				'status' => 200,
+				'data' => $entries
+			];
+
+			return response()->json( $data, 200 );
+		} else {
+			$data = [ 
+				'status' => 404,
+				'message' => 'No entries found'
 			];
 			return response()->json( $data, 404 );
 		}

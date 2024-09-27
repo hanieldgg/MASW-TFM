@@ -27,4 +27,8 @@ export class EntryCategoryService {
     public deleteEntryCategory(id: number): Observable<any> {
         return this.http.delete(url + '/' + id);
     }
+
+    public getFullEntryCategory(id: number): Observable<any> {
+        return this.http.get(url + '/full/' + id);
+    }
 }

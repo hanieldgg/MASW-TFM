@@ -3,9 +3,8 @@
         <ion-list>
             <ion-item color="light">
                 <ion-input
-                    label="Entry's Title"
+                    label="Entry's Title*"
                     labelPlacement="floating"
-                    placeholder="Enter text"
                     #title="ngModel"
                     name="title"
                     id="title"
@@ -16,9 +15,10 @@
             @for(level of entry_categories; track $index ){
             <ion-item color="light">
                 <ion-select
-                    label="Entry Category"
+                    label="Entry Category*"
                     label-placement="floating"
-                    (ionChange)="getCategories($event)"
+                    (ionChange)="handleEntryCategoryChange($event)"
+                    id="{{ $index }}"
                 >
                     @for(single_category of level; track $index ){
                     <ion-select-option value="{{ single_category.id }}">{{
@@ -31,9 +31,12 @@
 
             <ion-item color="light">
                 <ion-textarea
-                    label="Floating label"
+                    label="Entry Description"
                     labelPlacement="floating"
-                    placeholder="Enter text"
+                    #description="ngModel"
+                    name="description"
+                    id="description"
+                    [(ngModel)]="entry.description"
                 ></ion-textarea>
             </ion-item>
         </ion-list>

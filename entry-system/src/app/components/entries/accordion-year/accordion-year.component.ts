@@ -12,10 +12,16 @@ import { AccordionPaymentStatusComponent } from '../accordion-payment-status/acc
 })
 export class AccordionYearComponent implements OnInit {
     @Input() year: number = 0;
-    @Input() total_entries: number = 0;
+    @Input() entries: any;
     @Input() key: number = 0;
+    public statuses: string[] = ['winner', 'paid', 'unpaid'];
+    public total_entries: number = 0;
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.statuses.forEach((status) => {
+            this.total_entries += this.entries[status].length;
+        });
+    }
 }

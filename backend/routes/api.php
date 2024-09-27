@@ -29,6 +29,7 @@ Route::get( 'entry-categories/{id}', [ EntryCategoryController::class, 'find' ] 
 Route::post( 'entry-categories', [ EntryCategoryController::class, 'create' ] );
 Route::put( 'entry-categories/{id}', [ EntryCategoryController::class, 'update' ] );
 Route::delete( 'entry-categories/{id}', [ EntryCategoryController::class, 'delete' ] );
+Route::get( 'entry-categories/full/{id}', [ EntryCategoryController::class, 'getFullCategory' ] );
 
 
 
@@ -38,3 +39,5 @@ Route::get( 'entries/{id}', [ EntryController::class, 'find' ] );
 Route::post( 'entries', [ EntryController::class, 'create' ] );
 Route::put( 'entries/{id}', [ EntryController::class, 'update' ] );
 Route::delete( 'entries/{id}', [ EntryController::class, 'delete' ] );
+Route::get( 'entries/user/{userID}', [ EntryController::class, 'indexByUser' ] );
+Route::get( 'entries/unpaid/user/{userID}', [ EntryController::class, 'indexUnpaidEntries' ] );

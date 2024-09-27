@@ -1808,12 +1808,6 @@ class EntryCategorySeeder extends Seeder {
    "price": 125
  },
  {
-   "title": "351. Annual Report",
-   "parent": "PublicationsPhotography",
-   "main": "Creativity (Print or Digital)",
-   "price": 125
- },
- {
    "title": "14. Poster",
    "parent": "Ads",
    "main": "Advertising/Marketing",
@@ -1995,7 +1989,7 @@ class EntryCategorySeeder extends Seeder {
  },
  {
    "title": "318. Illustration/Graphic Design",
-   "parent": "Creativity (Print or Digital)Design",
+   "parent": "Design",
    "main": "Creativity (Print or Digital)",
    "price": 125
  },

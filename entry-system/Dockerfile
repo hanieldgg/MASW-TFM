@@ -1,5 +1,5 @@
 # Base image
-FROM node:18-alpine
+FROM node:22
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -8,7 +8,10 @@ WORKDIR /usr/src/app
 RUN npm install -g @ionic/cli
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package.json ./
+
+# Install dependencies
+RUN npm install
 
 # Remove node_modules folder
 RUN rm -rf node_modules

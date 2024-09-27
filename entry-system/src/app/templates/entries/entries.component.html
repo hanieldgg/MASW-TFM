@@ -16,16 +16,17 @@
 
     <div id="container">
         <ion-accordion-group>
+            @for(year of years; track $index) {
             <app-accordion-year
-                [key]="0"
-                [year]="2024"
-                [total_entries]="1"
+                [key]="$index"
+                [year]="year"
+                [entries]="entries[year]"
             ></app-accordion-year>
-            <app-accordion-year
-                [key]="1"
-                [year]="2023"
-                [total_entries]="10"
-            ></app-accordion-year>
+            <!-- @for(status of statuses; track $index) { 
+					@for(entry of entries[year][status]; track $index) {
+					} 
+				}  -->
+            }
         </ion-accordion-group>
     </div>
 </ion-content>

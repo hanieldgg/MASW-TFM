@@ -1,40 +1,29 @@
 <ion-accordion value="{{ key }}">
     <ion-item slot="header" color="light">
-        <ion-label>{{ status }} ({{ total_entries }})</ion-label>
+        <ion-label>{{ status_formated }} ({{ total_entries }})</ion-label>
     </ion-item>
     <div class="ion-padding" slot="content">
-        <ion-card>
+        @if( status == 'unpaid' ){
+        <ion-card color="warning">
             <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+                <ion-card-title
+                    >Just One More Step to Complete Your Order
+                </ion-card-title>
+                <ion-card-subtitle>Almost There! </ion-card-subtitle>
             </ion-card-header>
 
             <ion-card-content>
-                Here's a small text description for the card content. Nothing
-                more, nothing less.
+                It looks like you’ve started the checkout process but haven’t
+                finished yet.
             </ion-card-content>
-        </ion-card>
-        <ion-card>
-            <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
 
-            <ion-card-content>
-                Here's a small text description for the card content. Nothing
-                more, nothing less.
-            </ion-card-content>
+            <ion-button fill="clear" (click)="navigateToCheckout()"
+                >Continue to Checkout</ion-button
+            >
         </ion-card>
-        <ion-card>
-            <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
 
-            <ion-card-content>
-                Here's a small text description for the card content. Nothing
-                more, nothing less.
-            </ion-card-content>
-        </ion-card>
+        } @for( entry of entries; track $index){
+        <app-entry-card [entry]="entry"></app-entry-card>
+        }
     </div>
 </ion-accordion>

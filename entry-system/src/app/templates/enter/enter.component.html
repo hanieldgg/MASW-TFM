@@ -15,7 +15,11 @@
     </ion-header>
 
     <div id="container">
-        @for(entry of entries; track $index ){
+        @if(isLoading){
+        <div id="loading-wrapper">
+            <ion-spinner></ion-spinner>
+        </div>
+        } @else { @for(entry of entries; track $index ){
         <app-enter-card [entry]="entry"></app-enter-card>
 
         @if( $index != 0 ){
@@ -33,15 +37,33 @@
                 </ion-button>
             </div>
             <div class="right">
-                <ion-button color="medium">
+                <ion-button color="medium" (click)="saveChanges(false)">
                     Save Changes
                     <ion-icon slot="end" name="save"></ion-icon>
                 </ion-button>
-                <ion-button>
+                <ion-button (click)="saveChanges(true)">
                     Continue
                     <ion-icon slot="end" name="arrow-forward"></ion-icon>
                 </ion-button>
             </div>
         </div>
+        }
+
+        <ion-alert
+            [isOpen]="isAlertOpen"
+            header="Alert"
+            subHeader="An error has occurred"
+            message="Please fill all required fields to continue."
+            [buttons]="alertButtons"
+            (didDismiss)="setAlertOpen(false)"
+        ></ion-alert>
+
+        <ion-toast
+            [isOpen]="isToastOpen"
+            message="Entries saved successfully"
+            [duration]="3000"
+            position="bottom"
+            (didDismiss)="setOpen(false)"
+        ></ion-toast>
     </div>
 </ion-content>

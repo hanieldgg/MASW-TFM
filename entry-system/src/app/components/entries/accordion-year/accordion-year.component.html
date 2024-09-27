@@ -4,21 +4,15 @@
     </ion-item>
     <div class="ion-padding" slot="content">
         <ion-accordion-group>
+            @for( status of statuses; track $index ){ @if(
+            entries[status].length > 0 ){
             <app-accordion-payment-status
-                [key]="0"
-                [total_entries]="3"
-                [status]="'Judged Entries'"
+                [key]="$index"
+                [total_entries]="entries[status].length"
+                [entries]="entries[status]"
+                [status]="status"
             ></app-accordion-payment-status>
-            <app-accordion-payment-status
-                [key]="1"
-                [total_entries]="2"
-                [status]="'Paid Entries'"
-            ></app-accordion-payment-status>
-            <app-accordion-payment-status
-                [key]="2"
-                [total_entries]="1"
-                [status]="'Unpaid Entries'"
-            ></app-accordion-payment-status>
+            } }
         </ion-accordion-group>
     </div>
 </ion-accordion>

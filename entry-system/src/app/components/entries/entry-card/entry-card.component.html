@@ -1,3 +1,31 @@
-<p>
-  entry-card works!
-</p>
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>
+            {{ entry.title }}
+        </ion-card-title>
+        <ion-card-subtitle>
+            {{ entry_category }}
+        </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+        {{ entry.description }}
+    </ion-card-content>
+
+    <div>
+        @if( entry.winner_status != "none" && entry.payment_status == "paid" &&
+        entry.judgement_status == "judged" ){
+        <ion-button fill="clear">Order Certificate</ion-button>
+        <ion-button fill="clear">Buy Statuette</ion-button>
+        }
+    </div>
+
+    <div>
+        @if( entry.winner_status == "none" && entry.payment_status == "unpaid"
+        && entry.judgement_status == "to_be" ){
+        <ion-button fill="clear">Upload Files</ion-button>
+        <ion-button fill="clear">Edit</ion-button>
+        <ion-button fill="clear">Delete</ion-button>
+        }
+    </div>
+</ion-card>

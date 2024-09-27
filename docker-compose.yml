@@ -1,69 +1,44 @@
-# version: "3.8"
-
-# services:
-#     backend:
-#         build:
-#             context: ./backend
-#             dockerfile: Dockerfile
-#         container_name: backend
-#         ports:
-#             - "8000:8000"
-#         volumes:
-#             - ./backend:/var/www/html
-#         networks:
-#             - app-network
-
-#     db:
-#         image: mysql:8
-#         container_name: mysql-db
-#         environment:
-#             MYSQL_ROOT_PASSWORD: root
-#             MYSQL_DATABASE: laravel
-#         ports:
-#             - "3306:3306"
-#         volumes:
-#             - dbdata:/var/lib/mysql
-#         networks:
-#             - app-network
-
-# networks:
-#     app-network:
-#         driver: bridge
-
-# volumes:
-#     dbdata:
-
-version: "3.8"
-
 services:
-    app:
+    # app:
+    #     build:
+    #         context: ./backend
+    #         dockerfile: Dockerfile
+    #     container_name: laravel-app
+    #     ports:
+    #         - "8000:8000"
+    #     volumes:
+    #         - ./backend:/var/www/html
+    #     networks:
+    #         - app-network
+
+    ionic:
         build:
-            context: ./backend
+            context: ./entry-system
             dockerfile: Dockerfile
-        container_name: laravel-app
+        container_name: entry-system
         ports:
-            - "8000:8000"
+            - "8100:8100"
         volumes:
-            - ./backend:/var/www/html
+            - ./entry-system:/usr/src/app
         networks:
             - app-network
 
-    db:
-        image: mysql:8
-        container_name: mysql-db
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: laravel
-        ports:
-            - "3306:3306"
-        volumes:
-            - dbdata:/var/lib/mysql
-        networks:
-            - app-network
+    # db:
+    #     image: mysql:8
+    #     container_name: mysql-db
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: root
+    #         MYSQL_DATABASE: laravel
+    #     ports:
+    #         - "3306:3306"
+    #     volumes:
+    #         - dbdata:/var/lib/mysql
+    #     networks:
+    #         - app-network
 
 networks:
     app-network:
         driver: bridge
 
-volumes:
-    dbdata:
+# volumes:
+    # dbdata:

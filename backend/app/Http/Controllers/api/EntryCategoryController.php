@@ -176,4 +176,52 @@ class EntryCategoryController extends Controller {
 		}
 	}
 
+	public function getFullCategory( $id ) {
+		$entryCategory = EntryCategory::find( $id );
+
+		if ( $entryCategory ) {
+
+			if ( $entryCategory->parent_id == 0 || $entryCategory->parent_id == null ) {
+				$response = [ 
+					'status' => 400,
+					'message' => 'Invalid entry sscategory'
+				];
+
+				return response()->json( $response, 400 );
+			}
+
+			$children = EntryCategory::where( 'parent_id', $entryCategory->id )->get();
+
+			if ( sizeof( $children ) > 0 ) {
+				$response = [ 
+					'status' => 400,
+					'message' => 'Invalid entry category'
+				];
+
+				return response()->json( $response, 400 );
+			}
+
+			$parent_category = EntryCategory::find( $entryCategory->parent_id );
+			$grandparent_category = EntryCategory::find( $parent_category->parent_id );
+
+			$entryCategory_formated = array(
+				$grandparent_category->title,
+				$parent_category->title,
+				$entryCategory->title,
+			);
+
+			$data = [ 
+				'status' => 200,
+				'data' => implode( " | ", $entryCategory_formated )
+			];
+
+			return response()->json( $data, 200 );
+		} else {
+			$data = [ 
+				'status' => 404,
+				'message' => 'No entry category found'
+			];
+			return response()->json( $data, 404 );
+		}
+	}
 }

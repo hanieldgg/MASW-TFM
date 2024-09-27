@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AccordionEntriesComponent } from './accordion-entries.component';
+import { CheckoutComponent } from './checkout.component';
 
-describe('AccordionEntriesComponent', () => {
-  let component: AccordionEntriesComponent;
-  let fixture: ComponentFixture<AccordionEntriesComponent>;
+describe('CheckoutComponent', () => {
+  let component: CheckoutComponent;
+  let fixture: ComponentFixture<CheckoutComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccordionEntriesComponent ],
+      declarations: [ CheckoutComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AccordionEntriesComponent);
+    fixture = TestBed.createComponent(CheckoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

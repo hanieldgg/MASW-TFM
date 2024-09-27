@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { EntriesComponent } from './templates/entries/entries.component';
 import { EnterComponent } from './templates/enter/enter.component';
+import { CheckoutComponent } from './templates/checkout/checkout.component';
 
 const routes: Routes = [
     {
@@ -17,6 +18,10 @@ const routes: Routes = [
     {
         path: 'enter',
         component: EnterComponent,
+    },
+    {
+        path: 'checkout',
+        component: CheckoutComponent,
     },
 ];
 
