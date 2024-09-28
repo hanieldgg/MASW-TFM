@@ -1,105 +1,153 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
-import { EntryCategoryService } from 'src/app/services/entry-categories/entry-categories.service';
+import { BraintreeService } from 'src/app/services/braintree-service/braintree-service.service';
 import { EntryService } from 'src/app/services/entries/entries.service';
+import { EntryCategoryService } from 'src/app/services/entry-categories/entry-categories.service';
+
+import { EntryCardComponent } from 'src/app/components/entries/entry-card/entry-card.component';
+
+declare var braintree: any;
 
 @Component({
     selector: 'app-checkout',
+    standalone: true,
+    imports: [IonicModule, EntryCardComponent],
+    providers: [BraintreeService, EntryService, EntryCategoryService],
     templateUrl: './checkout.component.html',
     styleUrls: ['./checkout.component.scss'],
-    standalone: true,
-    providers: [EntryService, EntryCategoryService],
-    imports: [IonicModule, CommonModule],
 })
-export class CheckoutComponent {
-    isLoading: boolean = false;
-    cartItems: any[] = [];
-    totalAmount: number = 0;
-    isAlertOpen: boolean = false;
-    isToastOpen: boolean = false;
-    alertButtons = ['OK'];
+export class CheckoutComponent implements OnInit {
+    private hostedFieldsInstance: any;
+    public unpaidEntries: any;
+    public total: number = 0;
+    public isToastOpen: boolean = false;
 
     constructor(
         private entryService: EntryService,
-        private entryCategoryService: EntryCategoryService
-    ) {
-        this.loadCartItems();
-    }
+        private entryCategoryService: EntryCategoryService,
+        private braintreeService: BraintreeService,
+        private router: Router
+    ) {}
 
-    loadCartItems() {
-        this.isLoading = true;
-
+    ngOnInit() {
+        this.braintreeService.getClientToken().subscribe((data) => {
+            this.initializeHostedFields(data.clientToken);
+        });
         this.entryService.getUserUnpaidEntries().subscribe({
             next: (info) => {
                 if (info.status == 200) {
-                    let entries = info.data;
-
-                    // this.cartItems = [
-                    //     { name: 'Item 1', price: 10 },
-                    //     { name: 'Item 2', price: 20 },
-                    // ];
-
-                    this.cartItems = [];
-
-                    entries.forEach((entry: any) => {
-                        this.entryCategoryService
-                            .findEntryCategory(entry.entry_category_id)
-                            .subscribe({
-                                next: (info) => {
-                                    if (info.status == 200) {
-                                        let newItem = {
-                                            name: info.data.title,
-                                            price: info.data.price,
-                                        };
-
-                                        this.cartItems.push(newItem);
-                                        this.calculateTotal();
-                                    }
-                                },
-                                error: (error) => {
-                                    console.log(error);
-                                    this.isLoading = false;
-                                },
-                            });
-                    });
-
-                    this.isLoading = false;
+                    this.unpaidEntries = info.data;
+                    this.calculateTotal(this.unpaidEntries);
                 }
             },
             error: (error) => {
                 console.log(error);
-                this.isLoading = false;
             },
         });
     }
 
-    calculateTotal() {
-        this.totalAmount = this.cartItems.reduce(
-            (acc, item) => acc + item.price,
-            0
+    calculateTotal(entries: any) {
+        entries.forEach((entry: any) => {
+            this.entryCategoryService
+                .findEntryCategory(entry.entry_category_id)
+                .subscribe((info: any) => {
+                    this.total += info.data.price;
+                });
+        });
+    }
+
+    initializeHostedFields(clientToken: string) {
+        const form = document.querySelector('#payment-form');
+
+        braintree.hostedFields.create(
+            {
+                authorization: clientToken,
+                preventAutofill: true,
+                fields: {
+                    cardholderName: {
+                        selector: '#card-name',
+                        placeholder: 'John Doe',
+                        formatInput: false,
+                    },
+                    number: {
+                        selector: '#card-number',
+                        placeholder: '4111 1111 1111 1111',
+                        formatInput: false,
+                    },
+                    cvv: {
+                        selector: '#cvv',
+                        placeholder: '123',
+                    },
+                    expirationDate: {
+                        selector: '#expiration-date',
+                        placeholder: 'MM/YY',
+                    },
+                },
+            },
+            (err: any, instance: any) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                this.hostedFieldsInstance = instance;
+
+                form?.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    this.onSubmit();
+                });
+            }
         );
     }
 
-    removeItem(index: number) {
-        this.cartItems.splice(index, 1);
-        this.calculateTotal();
-    }
-
-    goBack() {}
-
-    saveCart() {
-        this.isToastOpen = true;
-    }
-
-    proceedToPayment() {}
-
-    setAlertOpen(isOpen: boolean) {
-        this.isAlertOpen = isOpen;
+    onSubmit() {
+        this.hostedFieldsInstance.tokenize((tokenizeErr: any, payload: any) => {
+            if (tokenizeErr) {
+                console.error(tokenizeErr);
+                return;
+            }
+            this.processPayment(payload.nonce);
+        });
     }
 
     setOpen(isOpen: boolean) {
         this.isToastOpen = isOpen;
+    }
+
+    navigateHome() {
+        this.setOpen(false);
+        this.router.navigate(['/entries']);
+    }
+
+    updatePaidEntries(entries: any) {
+        this.unpaidEntries.forEach((entry: any) => {
+            this.braintreeService.checkoutEntry(entry.id).subscribe({
+                next: (info) => {
+                    if (info.status == 200) {
+                        console.log('payment updated');
+                    }
+                },
+                error: (error) => {
+                    console.log(error);
+                },
+            });
+        });
+    }
+
+    processPayment(nonce: string) {
+        this.braintreeService
+            .processPayment(nonce, this.total.toString())
+            .subscribe({
+                next: (response) => {
+                    console.log('Transaction successful: ', response);
+                    this.updatePaidEntries(this.unpaidEntries);
+                    this.setOpen(true);
+                },
+                error: (error) => {
+                    console.error('Transaction failed: ', error);
+                    // Handle error
+                },
+            });
     }
 }

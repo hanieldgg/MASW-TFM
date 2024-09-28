@@ -7,6 +7,7 @@ use App\Http\Controllers\api\EntryCategoryController;
 use App\Http\Controllers\api\EntryController;
 use App\Http\Controllers\api\FileController;
 use App\Http\Controllers\api\OrderController;
+use App\Http\Controllers\BraintreeController;
 
 Route::get( '/user', function (Request $request) {
 	return $request->user();
@@ -41,3 +42,10 @@ Route::put( 'entries/{id}', [ EntryController::class, 'update' ] );
 Route::delete( 'entries/{id}', [ EntryController::class, 'delete' ] );
 Route::get( 'entries/user/{userID}', [ EntryController::class, 'indexByUser' ] );
 Route::get( 'entries/unpaid/user/{userID}', [ EntryController::class, 'indexUnpaidEntries' ] );
+
+
+
+// Braintree routes
+Route::get( '/client_token', [ BraintreeController::class, 'getClientToken' ] );
+Route::post( '/checkout', [ BraintreeController::class, 'checkout' ] );
+Route::post( '/checkout/entry', [ BraintreeController::class, 'checkoutEntry' ] );

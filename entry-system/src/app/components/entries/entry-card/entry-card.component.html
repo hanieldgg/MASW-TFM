@@ -4,7 +4,7 @@
             {{ entry.title }}
         </ion-card-title>
         <ion-card-subtitle>
-            {{ entry_category }}
+            {{ full_entry_category }}
         </ion-card-subtitle>
     </ion-card-header>
 
@@ -12,6 +12,7 @@
         {{ entry.description }}
     </ion-card-content>
 
+    @if(!checkout){
     <div>
         @if( entry.winner_status != "none" && entry.payment_status == "paid" &&
         entry.judgement_status == "judged" ){
@@ -21,11 +22,23 @@
     </div>
 
     <div>
+        @if( entry.winner_status == "none" && entry.payment_status == "paid" &&
+        entry.judgement_status == "to_be" ){
+        <ion-button fill="clear">Upload Files</ion-button>
+        }
+    </div>
+
+    <div>
         @if( entry.winner_status == "none" && entry.payment_status == "unpaid"
         && entry.judgement_status == "to_be" ){
-        <ion-button fill="clear">Upload Files</ion-button>
         <ion-button fill="clear">Edit</ion-button>
         <ion-button fill="clear">Delete</ion-button>
         }
     </div>
+    } @else {
+    <div id="checkout-cta">
+        <ion-button fill="clear">Delete</ion-button>
+        <ion-card-title>${{ price }}</ion-card-title>
+    </div>
+    }
 </ion-card>

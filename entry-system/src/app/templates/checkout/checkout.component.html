@@ -10,61 +10,57 @@
 <ion-content class="ion-padding" [fullscreen]="true">
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-title size="large">Checkout</ion-title>
+            <ion-title size="large">Cart</ion-title>
         </ion-toolbar>
     </ion-header>
 
-    <div id="container">
-        <div *ngIf="isLoading" id="loading-wrapper">
-            <ion-spinner></ion-spinner>
-        </div>
+    @for(entry of unpaidEntries; track $index){
+    <app-entry-card [entry]="entry" [checkout]="true"></app-entry-card>
+    }
 
-        <div *ngIf="!isLoading">
-            <ion-list>
-                <ion-item *ngFor="let item of cartItems; let i = index">
-                    <ion-label>
-                        <h2>{{ item.name }}</h2>
-                        <p>Price: {{ item.price | currency }}</p>
-                    </ion-label>
-                    <ion-button
-                        fill="clear"
-                        color="danger"
-                        (click)="removeItem(i)"
-                    >
-                        <ion-icon slot="icon-only" name="trash"></ion-icon>
-                    </ion-button>
-                </ion-item>
-            </ion-list>
-
-            <div id="total">
-                <h2>Total: {{ totalAmount | currency }}</h2>
-            </div>
-
-            <div id="buttons">
-                <div class="right">
-                    <ion-button (click)="proceedToPayment()">
-                        Proceed to Payment
-                        <ion-icon slot="end" name="card"></ion-icon>
-                    </ion-button>
-                </div>
-            </div>
-        </div>
-
-        <ion-alert
-            [isOpen]="isAlertOpen"
-            header="Alert"
-            subHeader="An error has occurred"
-            message="Please fill all required fields to continue."
-            [buttons]="alertButtons"
-            (didDismiss)="setAlertOpen(false)"
-        ></ion-alert>
-
-        <ion-toast
-            [isOpen]="isToastOpen"
-            message="Cart saved successfully"
-            [duration]="3000"
-            position="bottom"
-            (didDismiss)="setOpen(false)"
-        ></ion-toast>
+    <div class="ion-padding">
+        <hr />
     </div>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>Total: ${{ total }}</ion-card-title>
+            <ion-card-subtitle>Checkout</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+            <form id="payment-form">
+                <ion-list>
+                    <ion-item>
+                        <p>Card Holder Name</p>
+                        <ion-content id="card-name"></ion-content>
+                    </ion-item>
+                    <ion-item>
+                        <p>Card Number</p>
+                        <ion-content id="card-number"></ion-content>
+                    </ion-item>
+                    <ion-item>
+                        <p>CVV</p>
+                        <ion-content id="cvv"></ion-content>
+                    </ion-item>
+                    <ion-item>
+                        <p>Expires On</p>
+                        <ion-content id="expiration-date"></ion-content>
+                    </ion-item>
+                </ion-list>
+
+                <div id="buttons">
+                    <ion-button type="submit">Pay Now</ion-button>
+                </div>
+            </form>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-toast
+        [isOpen]="isToastOpen"
+        message="Transaction Successfull"
+        [duration]="2000"
+        position="bottom"
+        (didDismiss)="navigateHome()"
+    ></ion-toast>
 </ion-content>

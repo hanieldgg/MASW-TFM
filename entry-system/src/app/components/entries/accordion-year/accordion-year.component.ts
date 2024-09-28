@@ -14,7 +14,7 @@ export class AccordionYearComponent implements OnInit {
     @Input() year: number = 0;
     @Input() entries: any;
     @Input() key: number = 0;
-    public statuses: string[] = ['winner', 'paid', 'unpaid'];
+    public statuses: string[] = ['winner', 'judged', 'paid', 'unpaid'];
     public total_entries: number = 0;
 
     constructor() {}

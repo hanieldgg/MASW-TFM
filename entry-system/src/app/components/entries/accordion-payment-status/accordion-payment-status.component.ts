@@ -28,6 +28,8 @@ export class AccordionPaymentStatusComponent implements OnInit {
         switch (this.status) {
             case 'winner':
                 return 'Winning Entries';
+            case 'judged':
+                return 'Judged Entries';
             case 'paid':
                 return 'Paid Entries';
             case 'unpaid':

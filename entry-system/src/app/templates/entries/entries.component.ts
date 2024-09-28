@@ -18,19 +18,28 @@ export class EntriesComponent implements OnInit {
     public entries: any = [];
     public years: any;
 
-    constructor(private entryService: EntryService) {
+    constructor(private entryService: EntryService) {}
+
+    initialize() {
+        console.log('initialize');
+    }
+
+    ngOnInit() {
+        console.log('ngOnInit');
+    }
+
+    ngAfterViewInit() {
+        console.log('ngAfterViewInit');
         this.fetchUserEntries();
     }
 
-    ngOnInit() {}
-
     fetchUserEntries() {
+        console.log('fetching');
         this.entryService.getUserEntries().subscribe({
             next: (info) => {
                 if (info.status == 200) {
                     this.entries = info.data;
-                    console.log(this.entries);
-
+                    console.log('fetched');
                     this.prepEntriesObject(this.entries);
                 }
             },

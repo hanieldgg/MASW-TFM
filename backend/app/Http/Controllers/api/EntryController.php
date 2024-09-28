@@ -211,6 +211,7 @@ class EntryController extends Controller {
 				if ( ! array_key_exists( $year, $entries_response ) ) {
 					$entries_response[ $year ] = array(
 						'winner' => array(),
+						'judged' => array(),
 						'paid' => array(),
 						'unpaid' => array(),
 					);
@@ -234,6 +235,15 @@ class EntryController extends Controller {
 
 				if (
 					$payment_status == 'paid' &&
+					$judgement_status == 'judged' &&
+					$winner_status == 'none'
+				) {
+					array_push( $entries_response[ $entry_year ]['judged'], $entry );
+				}
+
+				if (
+					$payment_status == 'paid' &&
+					$judgement_status == 'to_be' &&
 					$winner_status == 'none'
 				) {
 					array_push( $entries_response[ $entry_year ]['paid'], $entry );
@@ -266,22 +276,13 @@ class EntryController extends Controller {
 
 		$entries = Entry::where( 'user_id', $userID )->where( 'payment_status', 'unpaid' )->get();
 
-		if ( $entries->count() > 0 ) {
+		$data = [ 
+			'status' => 200,
+			'data' => $entries
+		];
 
+		return response()->json( $data, 200 );
 
-			$data = [ 
-				'status' => 200,
-				'data' => $entries
-			];
-
-			return response()->json( $data, 200 );
-		} else {
-			$data = [ 
-				'status' => 404,
-				'message' => 'No entries found'
-			];
-			return response()->json( $data, 404 );
-		}
 	}
 
 }

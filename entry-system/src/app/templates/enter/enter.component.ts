@@ -21,12 +21,24 @@ export class EnterComponent implements OnInit {
     public isLoading: boolean = false;
     public isAlertOpen: boolean = false;
     public alertButtons: string[] = ['Ok'];
+    public showCheckout: boolean = false;
 
     constructor(private entryService: EntryService, private router: Router) {
         this.addNewEntry();
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.entryService.getUserUnpaidEntries().subscribe({
+            next: (info) => {
+                if (info.data.length > 0) {
+                    this.showCheckout = true;
+                }
+            },
+            error: (error) => {
+                console.log(error);
+            },
+        });
+    }
 
     addNewEntry() {
         let new_entry = new Entry(0, '', '', '', 0, '', '', 0, 0, 0, '');

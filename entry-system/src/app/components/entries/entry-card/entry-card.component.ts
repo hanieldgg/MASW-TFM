@@ -12,19 +12,37 @@ import { EntryCategoryService } from 'src/app/services/entry-categories/entry-ca
 })
 export class EntryCardComponent implements OnInit {
     @Input() entry: any;
-    public entry_category: string = '';
+    @Input() checkout: boolean = false;
+    public entry_category: any;
+    public full_entry_category: string = '';
+    public price: number = 0;
 
     constructor(private entryCategoryService: EntryCategoryService) {}
 
     ngOnInit() {
         this.getFullCategory(this.entry.entry_category_id);
+
+        if (this.checkout) {
+            this.entryCategoryService
+                .findEntryCategory(this.entry.entry_category_id)
+                .subscribe({
+                    next: (info) => {
+                        if (info.status == 200) {
+                            this.price = info.data.price;
+                        }
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    },
+                });
+        }
     }
 
     getFullCategory(id: number) {
         this.entryCategoryService.getFullEntryCategory(id).subscribe({
             next: (info) => {
                 if (info.status == 200) {
-                    this.entry_category = info.data;
+                    this.full_entry_category = info.data;
                 }
             },
             error: (error) => {

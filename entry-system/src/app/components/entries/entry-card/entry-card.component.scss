@@ -1,3 +1,13 @@
 ion-card-header {
     gap: 15px;
 }
+
+#checkout-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    ion-card-title {
+        padding: 0 1em;
+    }
+}

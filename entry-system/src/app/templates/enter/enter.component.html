@@ -14,12 +14,34 @@
         </ion-toolbar>
     </ion-header>
 
-    <div id="container">
+    <div id="container" class="ion-padding">
         @if(isLoading){
         <div id="loading-wrapper">
             <ion-spinner></ion-spinner>
         </div>
-        } @else { @for(entry of entries; track $index ){
+        } @else { @if( showCheckout ){
+        <ion-card color="warning">
+            <ion-card-header>
+                <ion-card-title>
+                    We Noticed You Have Entries Ready to Be Paid.
+                </ion-card-title>
+                <ion-card-subtitle>
+                    Continue Where You Left Off?</ion-card-subtitle
+                >
+            </ion-card-header>
+
+            <ion-card-content>
+                It looks like you have some pending entries that need your
+                attention. Would you like to continue processing your payments?
+                Your progress is saved, so you can pick up right where you left
+                off!
+            </ion-card-content>
+
+            <ion-button fill="clear" (click)="navigateToCheckout()"
+                >Continue to Checkout</ion-button
+            >
+        </ion-card>
+        } @for(entry of entries; track $index ){
         <app-enter-card [entry]="entry"></app-enter-card>
 
         @if( $index != 0 ){

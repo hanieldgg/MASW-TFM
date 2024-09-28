@@ -5,6 +5,22 @@
     justify-content: space-between;
 }
 
+ion-list {
+    ion-item {
+        p {
+            margin-right: 20px;
+        }
+    }
+}
+
+hr {
+    background-color: black;
+    opacity: 1;
+}
+
+#checkout-form {
+}
+
 ion-toast {
     --background: #218c74;
     --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
