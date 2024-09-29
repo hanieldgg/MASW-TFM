@@ -120,28 +120,12 @@ export class CheckoutComponent implements OnInit {
         this.router.navigate(['/entries']);
     }
 
-    updatePaidEntries(entries: any) {
-        this.unpaidEntries.forEach((entry: any) => {
-            this.braintreeService.checkoutEntry(entry.id).subscribe({
-                next: (info) => {
-                    if (info.status == 200) {
-                        console.log('payment updated');
-                    }
-                },
-                error: (error) => {
-                    console.log(error);
-                },
-            });
-        });
-    }
-
     processPayment(nonce: string) {
         this.braintreeService
-            .processPayment(nonce, this.total.toString())
+            .processPayment(nonce, this.total.toString(), this.unpaidEntries)
             .subscribe({
                 next: (response) => {
                     console.log('Transaction successful: ', response);
-                    this.updatePaidEntries(this.unpaidEntries);
                     this.setOpen(true);
                 },
                 error: (error) => {

@@ -16,10 +16,15 @@ export class BraintreeService {
         );
     }
 
-    processPayment(nonce: string, amount: string): Observable<any> {
+    processPayment(
+        nonce: string,
+        amount: string,
+        entries: any
+    ): Observable<any> {
         return this.http.post(this.url + '/checkout', {
             paymentMethodNonce: nonce,
             amount: amount,
+            entries: entries,
         });
     }
 

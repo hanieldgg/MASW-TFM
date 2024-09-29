@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Entry;
+use App\Models\Order;
 
 use App\Providers\BraintreeService;
 use App\Http\Controllers\Controller;
@@ -26,7 +27,8 @@ class BraintreeController extends Controller {
 	public function checkout( Request $request ) {
 		$validator = Validator::make( $request->all(), [ 
 			'paymentMethodNonce' => 'required',
-			'amount' => 'required', 'numeric'
+			'amount' => 'required', 'numeric',
+			'entries' => 'required'
 		] );
 
 		if ( $validator->fails() ) {
@@ -40,40 +42,38 @@ class BraintreeController extends Controller {
 
 		if ( $result->success ) {
 
+			$this->checkoutEntries( $request->amount, $result->transaction->id, $request->entries );
+
 			return response()->json( [ 'success' => true, 'transactionId' => $result->transaction->id ] );
 		} else {
 			return response()->json( [ 'error' => $result->message ], 500 );
 		}
 	}
 
-	public function checkoutEntry( Request $request ) {
+	public function checkoutEntries( $total, $braintree_id, $entries ) {
 
-		$validator = Validator::make( $request->all(), [ 
-			'entryID' => [ 'numeric', 'required', Rule::exists( 'entries', 'id' ) ],
-		] );
+		$args = array(
+			'user_id' => 1,
+			'total' => $total,
+			'payment_type' => 'Credit Card',
+			'braintree_transaction_id' => $braintree_id,
+		);
 
-		if ( $validator->fails() ) {
-			return response()->json( [ 
-				'status' => 422,
-				'error' => $validator->messages()
-			], 422 );
+		$order = Order::create( $args );
+
+		foreach ( $entries as $entry_in ) {
+
+			$entry = Entry::find( $entry_in['id'] );
+
+			if ( $entry ) {
+
+				$args = [];
+				$args['payment_status'] = 'paid';
+				$args['order_id'] = $order->id;
+
+				$entry->update( $args );
+			}
 		}
 
-		$entry = Entry::find( $request->entryID );
-
-		if ( $entry ) {
-
-			$args = [];
-			$args['payment_status'] = 'paid';
-
-			$entry->update( $args );
-
-			return response()->json( [ 
-				'status' => 200,
-				'message' => 'Entry updated',
-				'data' => $entry
-			], 200 );
-
-		}
 	}
 }

@@ -16,7 +16,6 @@ return new class extends Migration {
 			$table->timestamp( 'email_verified_at' )->nullable();
 			$table->string( 'password' );
 			$table->string( 'name' );
-			$table->string( 'address' );
 
 			$table->foreignId( 'company_id' )->constrained( 'companies' );
 

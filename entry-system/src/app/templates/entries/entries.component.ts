@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 import { AccordionYearComponent } from 'src/app/components/entries/accordion-year/accordion-year.component';
 
@@ -18,18 +20,19 @@ export class EntriesComponent implements OnInit {
     public entries: any = [];
     public years: any;
 
-    constructor(private entryService: EntryService) {}
-
-    initialize() {
-        console.log('initialize');
-    }
+    constructor(
+        private entryService: EntryService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
-        console.log('ngOnInit');
+        this.activatedRoute.params.subscribe((params) => {
+            this.executeAfterRouteChange(params);
+        });
     }
 
-    ngAfterViewInit() {
-        console.log('ngAfterViewInit');
+    executeAfterRouteChange(params: any) {
         this.fetchUserEntries();
     }
 

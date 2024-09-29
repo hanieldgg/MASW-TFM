@@ -8,13 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model {
 	use HasFactory;
 
-	protected $table = 'files';
+	protected $table = 'orders';
 
 	protected $fillable = [ 
-		'billing_address',
-		'total',
-		'date_placed',
-		'payment_type',
 		'user_id',
+		'total',
+		'payment_type',
+		'braintree_transaction_id',
 	];
 }
