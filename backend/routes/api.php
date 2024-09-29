@@ -48,3 +48,8 @@ Route::get( 'entries/unpaid/user/{userID}', [ EntryController::class, 'indexUnpa
 // Braintree routes
 Route::get( '/client_token', [ BraintreeController::class, 'getClientToken' ] );
 Route::post( '/checkout', [ BraintreeController::class, 'checkout' ] );
+
+
+
+// Orders routes
+Route::post( '/orders', [ OrderController::class, 'getUserOrders' ] );

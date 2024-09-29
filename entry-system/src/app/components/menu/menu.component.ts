@@ -14,6 +14,7 @@ export class MenuComponent implements OnInit {
     public appPages = [
         { title: 'Enter Now', url: '/enter', icon: 'star' },
         { title: 'My Entries', url: '/entries', icon: 'reader' },
+        { title: 'My Orders', url: '/orders', icon: 'wallet' },
     ];
 
     constructor() {}

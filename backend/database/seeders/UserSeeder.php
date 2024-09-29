@@ -19,6 +19,12 @@ class UserSeeder extends Seeder {
 				"name" => "Haniel Garcia",
 				"company_id" => 1
 			),
+			array(
+				"email" => "john@viu.test",
+				"password" => "abcabc1234",
+				"name" => "Joh  Doe",
+				"company_id" => 2
+			),
 		);
 
 		foreach ( $users as $userKey => $user ) {

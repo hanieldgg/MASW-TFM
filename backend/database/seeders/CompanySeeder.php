@@ -17,6 +17,11 @@ class CompanySeeder extends Seeder {
 				"name" => "My Company",
 				"address" => "#",
 				"logo_url" => "#"
+			),
+			array(
+				"name" => "Test Company",
+				"address" => "#",
+				"logo_url" => "#"
 			)
 		);
 
