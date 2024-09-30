@@ -5,28 +5,47 @@ import { EntriesComponent } from './templates/entries/entries.component';
 import { EnterComponent } from './templates/enter/enter.component';
 import { CheckoutComponent } from './templates/checkout/checkout.component';
 import { OrdersComponent } from './templates/orders/orders.component';
+import { LoginComponent } from './templates/login/login.component';
+import { RegisterComponent } from './templates/register/register.component';
+import { ClientDashboardComponent } from './templates/client-dashboard/client-dashboard.component';
+import { AuthGuardService } from './guards/auth.guard';
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'entries',
-        pathMatch: 'full',
+        canActivate: [AuthGuardService],
+        component: ClientDashboardComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: 'entries',
+                pathMatch: 'full',
+            },
+            {
+                path: 'entries',
+                component: EntriesComponent,
+            },
+            {
+                path: 'enter',
+                component: EnterComponent,
+            },
+            {
+                path: 'checkout',
+                component: CheckoutComponent,
+            },
+            {
+                path: 'orders',
+                component: OrdersComponent,
+            },
+        ],
     },
     {
-        path: 'entries',
-        component: EntriesComponent,
+        path: 'login',
+        component: LoginComponent,
     },
     {
-        path: 'enter',
-        component: EnterComponent,
-    },
-    {
-        path: 'checkout',
-        component: CheckoutComponent,
-    },
-    {
-        path: 'orders',
-        component: OrdersComponent,
+        path: 'register',
+        component: RegisterComponent,
     },
 ];
 

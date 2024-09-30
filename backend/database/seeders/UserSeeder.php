@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +30,7 @@ class UserSeeder extends Seeder {
 		);
 
 		foreach ( $users as $userKey => $user ) {
-			DB::table( 'users' )->insert( $user );
+			User::create( $user );
 		}
 	}
 }

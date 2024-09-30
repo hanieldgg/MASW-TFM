@@ -8,6 +8,7 @@ use App\Http\Controllers\api\EntryController;
 use App\Http\Controllers\api\FileController;
 use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\BraintreeController;
+use App\Http\Controllers\AuthController;
 
 Route::get( '/user', function (Request $request) {
 	return $request->user();
@@ -46,10 +47,17 @@ Route::get( 'entries/unpaid/user/{userID}', [ EntryController::class, 'indexUnpa
 
 
 // Braintree routes
-Route::get( '/client_token', [ BraintreeController::class, 'getClientToken' ] );
-Route::post( '/checkout', [ BraintreeController::class, 'checkout' ] );
+Route::get( 'client_token', [ BraintreeController::class, 'getClientToken' ] );
+Route::post( 'checkout', [ BraintreeController::class, 'checkout' ] );
 
 
 
 // Orders routes
-Route::post( '/orders', [ OrderController::class, 'getUserOrders' ] );
+Route::post( 'orders', [ OrderController::class, 'getUserOrders' ] );
+
+
+
+// User routes
+Route::post( '/auth/login', [ AuthController::class, 'login' ] );
+Route::post( '/auth/register', [ AuthController::class, 'register' ] );
+Route::middleware( 'auth:sanctum' )->get( '/auth/profile', [ AuthController::class, 'getProfile' ] );

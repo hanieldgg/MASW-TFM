@@ -37,12 +37,10 @@ export class EntriesComponent implements OnInit {
     }
 
     fetchUserEntries() {
-        console.log('fetching');
         this.entryService.getUserEntries().subscribe({
             next: (info) => {
                 if (info.status == 200) {
                     this.entries = info.data;
-                    console.log('fetched');
                     this.prepEntriesObject(this.entries);
                 }
             },
