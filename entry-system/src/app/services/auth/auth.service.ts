@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { tap, take, map, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -12,8 +13,6 @@ export class AuthService {
     constructor(private http: HttpClient) {}
 
     public login(credentials: { email: string; password: string }) {
-        // return this.http.post(`${this.apiUrl}/login`, credentials);
-
         return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
             tap((response: any) => {
                 if (response.token) {
@@ -27,26 +26,38 @@ export class AuthService {
         return this.http.post(`${this.apiUrl}/register`, userData);
     }
 
-    public isLoggedIn(): boolean {
-        let tokenData = JSON.parse(this.getToken());
+    public validateToken(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/validate`, {
+            headers: this.getHeaders(),
+        });
+    }
+
+    public isLoggedIn(): Observable<boolean> {
+        const tokenData = JSON.parse(this.getToken());
 
         if (!tokenData) {
-            return false;
+            return of(false);
         }
 
-        let now: any = new Date();
-        let createdAt: any = new Date(tokenData.createdAt);
-        let expirationTime = 5 * 60 * 1000;
-        let isValid = now - createdAt < expirationTime;
+        const now = new Date();
+        const createdAt = new Date(tokenData.createdAt);
+        const expirationTime = 5 * 60 * 1000;
+        const isValid = now.getTime() - createdAt.getTime() < expirationTime;
 
         if (isValid) {
-            return true;
+            return of(true);
         } else {
-            localStorage.removeItem('authToken');
-            return false;
+            return this.validateToken().pipe(
+                take(1),
+                tap((info: any) => {
+                    if (info.status === 200) {
+                        console.log('Token is valid');
+                    }
+                }),
+                map(() => true),
+                catchError(() => of(false))
+            );
         }
-
-        // return this.getToken() !== null;
     }
 
     public setToken(token: string) {
@@ -57,21 +68,19 @@ export class AuthService {
                 createdAt: now.toISOString(),
             };
             localStorage.setItem('authToken', JSON.stringify(tokenData));
-
-            // localStorage.setItem(this.TOKEN_KEY, token);
         }
     }
 
     public getToken(): any | null {
         if (typeof localStorage !== 'undefined') {
             return localStorage.getItem('authToken');
-            // return localStorage.getItem(this.TOKEN_KEY);
         }
         return null;
     }
 
     public getHeaders(): HttpHeaders {
-        let token = this.getToken();
+        const tokenData = JSON.parse(this.getToken());
+        const token = tokenData.token;
         return new HttpHeaders().set('Authorization', `Bearer ${token}`);
     }
 }
