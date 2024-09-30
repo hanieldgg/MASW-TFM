@@ -41,7 +41,8 @@ export class AuthService {
 
         const now = new Date();
         const createdAt = new Date(tokenData.createdAt);
-        const expirationTime = 5 * 60 * 1000;
+        // const expirationTime = 5 * 60 * 1000;
+        const expirationTime = 5 * 1000;
         const isValid = now.getTime() - createdAt.getTime() < expirationTime;
 
         if (isValid) {
@@ -51,7 +52,7 @@ export class AuthService {
                 take(1),
                 tap((info: any) => {
                     if (info.status === 200) {
-                        console.log('Token is valid');
+                        // console.log('Token is valid');
                     }
                 }),
                 map(() => true),
@@ -79,8 +80,9 @@ export class AuthService {
     }
 
     public getHeaders(): HttpHeaders {
-        const tokenData = JSON.parse(this.getToken());
-        const token = tokenData.token;
+        let tokenData = JSON.parse(this.getToken());
+        let token = tokenData.token;
+
         return new HttpHeaders().set('Authorization', `Bearer ${token}`);
     }
 }
