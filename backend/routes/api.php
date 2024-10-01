@@ -22,6 +22,7 @@ Route::post( '/auth/register', [ AuthController::class, 'register' ] );
 Route::middleware( 'auth:sanctum' )->group( function () {
 	Route::get( '/auth/validate', [ AuthController::class, 'validateToken' ] );
 	Route::get( '/auth/profile', [ AuthController::class, 'getProfile' ] );
+	Route::post( '/auth/profile', [ AuthController::class, 'updateProfile' ] );
 
 	// Companies CRUD
 	Route::get( 'companies', [ CompanyController::class, 'index' ] );

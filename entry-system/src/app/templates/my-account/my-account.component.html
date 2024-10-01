@@ -1,3 +1,82 @@
-<p>
-  my-account works!
-</p>
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>My Account</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">My Account</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <form (ngSubmit)="onSubmit()" #accountForm="ngForm">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Name</ion-label>
+                        <ion-input
+                            type="text"
+                            name="name"
+                            [(ngModel)]="user.name"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Email</ion-label>
+                        <ion-input
+                            [readonly]="true"
+                            type="email"
+                            name="email"
+                            [(ngModel)]="user.email"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Company Name</ion-label>
+                        <ion-input
+                            type="text"
+                            name="company"
+                            [(ngModel)]="user.company"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Address</ion-label>
+                        <ion-input
+                            type="text"
+                            name="address"
+                            [(ngModel)]="user.address"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div id="buttons">
+                        <ion-button
+                            type="submit"
+                            [disabled]="!accountForm.form.valid"
+                            >Update Account</ion-button
+                        >
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

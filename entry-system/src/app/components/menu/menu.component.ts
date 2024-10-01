@@ -17,7 +17,6 @@ export class MenuComponent implements OnInit {
         { title: 'Enter Now', url: '/enter', icon: 'star' },
         { title: 'My Entries', url: '/entries', icon: 'reader' },
         { title: 'My Orders', url: '/orders', icon: 'wallet' },
-        { title: 'My Company', url: '/company', icon: 'business' },
         { title: 'My Account', url: '/account', icon: 'person' },
     ];
 

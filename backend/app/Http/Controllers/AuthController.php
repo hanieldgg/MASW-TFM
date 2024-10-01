@@ -62,7 +62,42 @@ class AuthController extends Controller {
 		$user = Auth::user();
 
 		if ( $user ) {
-			return response()->json( $user );
+
+			$company = Company::find( $user->company_id );
+
+			$user_response = array(
+				"email" => $user->email,
+				"name" => $user->name,
+				"company" => $company->name,
+				"address" => $company->address,
+				"logo_url" => $company->logo_url,
+			);
+			return response()->json( array( 'status' => 200, 'data' => $user_response ) );
+		}
+
+		return response()->json( [ 'error' => 'Unauthorized' ], 401 );
+	}
+
+	public function updateProfile( Request $request ) {
+		$user = Auth::user();
+
+		if ( $user ) {
+
+			$company = Company::find( $user->company_id );
+
+			$user_args = array(
+				"name" => $request->name,
+			);
+
+			$company_args = array(
+				"name" => $request->company,
+				"address" => $request->address,
+			);
+
+			$user->update( $user_args );
+			$company->update( $company_args );
+
+			return response()->json( array( 'status' => 200 ) );
 		}
 
 		return response()->json( [ 'error' => 'Unauthorized' ], 401 );

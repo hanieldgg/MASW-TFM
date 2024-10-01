@@ -32,6 +32,18 @@ export class AuthService {
         });
     }
 
+    public getProfile(): Observable<any> {
+        return this.http.get(this.url + '/profile', {
+            headers: this.getHeaders(),
+        });
+    }
+
+    public updateProfile(user: any): Observable<any> {
+        return this.http.post(this.url + '/profile', user, {
+            headers: this.getHeaders(),
+        });
+    }
+
     public setToken(token: string) {
         if (typeof localStorage !== 'undefined') {
             const now = new Date();

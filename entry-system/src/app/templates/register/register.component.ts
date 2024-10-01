@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
     styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-    user = {
+    public user = {
         email: '',
         password: '',
         name: '',
