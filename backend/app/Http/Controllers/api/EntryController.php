@@ -179,24 +179,46 @@ class EntryController extends Controller {
 
 	public function delete( $id ) {
 
-		$entry = Entry::find( $id );
+		$user = Auth::user();
 
-		if ( $entry ) {
-			$entry->destroy( $id );
+		if ( $user ) {
 
-			$data = [ 
-				'status' => 200,
-				'message' => "Entry deleted successfully",
-			];
-			return response()->json( $data, 200 );
+			$entry = Entry::find( $id );
+
+			if ( $entry->user_id == $user->id ) {
+
+				if ( $entry ) {
+					$entry->destroy( $id );
+
+					$data = [ 
+						'status' => 200,
+						'message' => "Entry deleted successfully",
+					];
+					return response()->json( $data, 200 );
+				} else {
+
+					$data = [ 
+						'status' => 404,
+						'message' => 'No entry found'
+					];
+					return response()->json( $data, 404 );
+				}
+			} else {
+				$data = [ 
+					'status' => 401,
+					'message' => 'User unauthorized to delete entry'
+				];
+				return response()->json( $data, 401 );
+			}
+
 		} else {
-
 			$data = [ 
-				'status' => 404,
-				'message' => 'No entry found'
+				'status' => 401,
+				'message' => 'Unauthorized'
 			];
-			return response()->json( $data, 404 );
+			return response()->json( $data, 401 );
 		}
+
 	}
 
 	public function indexByUser( Request $request ) {

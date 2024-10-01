@@ -125,7 +125,6 @@ export class CheckoutComponent implements OnInit {
             .processPayment(nonce, this.total.toString(), this.unpaidEntries)
             .subscribe({
                 next: (response) => {
-                    console.log('Transaction successful: ', response);
                     this.setOpen(true);
                 },
                 error: (error) => {

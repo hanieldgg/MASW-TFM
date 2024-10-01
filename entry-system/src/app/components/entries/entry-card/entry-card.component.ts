@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
+import { EntryService } from 'src/app/services/entries/entries.service';
 import { EntryCategoryService } from 'src/app/services/entry-categories/entry-categories.service';
 @Component({
     selector: 'app-entry-card',
@@ -13,11 +14,15 @@ import { EntryCategoryService } from 'src/app/services/entry-categories/entry-ca
 export class EntryCardComponent implements OnInit {
     @Input() entry: any;
     @Input() checkout: boolean = false;
+    @Output() entryToDelete = new EventEmitter();
     public entry_category: any;
     public full_entry_category: string = '';
     public price: number = 0;
 
-    constructor(private entryCategoryService: EntryCategoryService) {}
+    constructor(
+        private entryCategoryService: EntryCategoryService,
+        private entryService: EntryService
+    ) {}
 
     ngOnInit() {
         this.getFullCategory(this.entry.entry_category_id);
@@ -49,5 +54,22 @@ export class EntryCardComponent implements OnInit {
                 console.log(error);
             },
         });
+    }
+
+    deleteEntry() {
+        this.entryService.deleteEntry(this.entry.id).subscribe({
+            next: (info) => {
+                if (info.status == 200) {
+                    this.emitDelete();
+                }
+            },
+            error: (error) => {
+                console.log(error);
+            },
+        });
+    }
+
+    public emitDelete() {
+        this.entryToDelete.emit(this.entry);
     }
 }

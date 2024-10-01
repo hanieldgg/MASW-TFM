@@ -31,7 +31,7 @@
     <div>
         @if( entry.winner_status == "none" && entry.payment_status == "unpaid"
         && entry.judgement_status == "to_be" ){
-        <ion-button fill="clear">Delete</ion-button>
+        <ion-button (click)="deleteEntry()" fill="clear">Delete</ion-button>
         }
     </div>
     } @else {

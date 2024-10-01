@@ -23,7 +23,10 @@
         </ion-card>
 
         } @for( entry of entries; track $index){
-        <app-entry-card [entry]="entry"></app-entry-card>
+        <app-entry-card
+            (entryToDelete)="deleteEntryObject($event)"
+            [entry]="entry"
+        ></app-entry-card>
         }
     </div>
 </ion-accordion>

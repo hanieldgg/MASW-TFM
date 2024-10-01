@@ -39,6 +39,16 @@ export class AccordionPaymentStatusComponent implements OnInit {
         }
     }
 
+    deleteEntryObject(entry: any) {
+        let indexToRemove = this.entries.findIndex(
+            (obj: any) => obj.id === entry.id
+        );
+
+        if (indexToRemove !== -1) {
+            this.entries.splice(indexToRemove, 1);
+        }
+    }
+
     navigateToCheckout() {
         this.router.navigate(['/checkout']);
     }
