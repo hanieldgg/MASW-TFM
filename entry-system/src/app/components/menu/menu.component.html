@@ -4,23 +4,24 @@
             <ion-list-header>MarCom Awards</ion-list-header>
 
             <ion-menu-toggle auto-hide="false">
-                @for(p of appPages; track $index){
-                <ion-item
-                    routerDirection="root"
-                    [routerLink]="[p.url]"
-                    lines="none"
-                    detail="false"
-                    routerLinkActive="selected"
-                >
-                    <ion-icon
-                        aria-hidden="true"
-                        slot="start"
-                        [ios]="p.icon + '-outline'"
-                        [md]="p.icon + '-sharp'"
-                    ></ion-icon>
-                    <ion-label>{{ p.title }}</ion-label>
-                </ion-item>
-                }
+                <ng-container *ngFor="let p of appPages; let i = index">
+                    <ion-item
+                        routerDirection="root"
+                        [routerLink]="[p.url]"
+                        lines="none"
+                        detail="false"
+                        routerLinkActive="selected"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                    >
+                        <ion-icon
+                            aria-hidden="true"
+                            slot="start"
+                            [ios]="p.icon + '-outline'"
+                            [md]="p.icon + '-sharp'"
+                        ></ion-icon>
+                        <ion-label>{{ p.title }}</ion-label>
+                    </ion-item>
+                </ng-container>
                 <ion-item
                     [button]="true"
                     (click)="logout()"
@@ -37,6 +38,5 @@
                 </ion-item>
             </ion-menu-toggle>
         </ion-list>
-        <p slot="end">logout</p>
     </ion-content>
 </ion-menu>

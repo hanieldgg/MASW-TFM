@@ -9,6 +9,8 @@ import { LoginComponent } from './templates/login/login.component';
 import { RegisterComponent } from './templates/register/register.component';
 import { ClientDashboardComponent } from './templates/client-dashboard/client-dashboard.component';
 import { AuthGuardService } from './guards/auth.guard';
+import { MyCompanyComponent } from './templates/my-company/my-company.component';
+import { MyAccountComponent } from './templates/my-account/my-account.component';
 
 const routes: Routes = [
     {
@@ -18,7 +20,7 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'entries',
+                redirectTo: 'account',
                 pathMatch: 'full',
             },
             {
@@ -36,6 +38,14 @@ const routes: Routes = [
             {
                 path: 'orders',
                 component: OrdersComponent,
+            },
+            {
+                path: 'company',
+                component: MyCompanyComponent,
+            },
+            {
+                path: 'account',
+                component: MyAccountComponent,
             },
         ],
     },

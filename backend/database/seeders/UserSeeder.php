@@ -19,12 +19,14 @@ class UserSeeder extends Seeder {
 				"email" => "haniel@viu.test",
 				"password" => "abcabc1234",
 				"name" => "Haniel Garcia",
+				"capabilities" => "administrator",
 				"company_id" => 1
 			),
 			array(
 				"email" => "john@viu.test",
 				"password" => "abcabc1234",
 				"name" => "Joh  Doe",
+				"capabilities" => "entrant",
 				"company_id" => 2
 			),
 		);

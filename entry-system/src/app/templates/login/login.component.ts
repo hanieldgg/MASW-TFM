@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
         this.authService.login(credentials).subscribe({
             next: (info) => {
-                this.router.navigate(['/entries']);
+                this.router.navigate(['/account']);
             },
             error: (error) => {
                 console.error('Login failed:', error);

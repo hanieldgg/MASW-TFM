@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
     selector: 'app-menu',
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss'],
-    imports: [IonicModule, RouterLink, CommonModule],
+    imports: [IonicModule, RouterLink, CommonModule, RouterLinkActive],
     standalone: true,
 })
 export class MenuComponent implements OnInit {
@@ -17,6 +17,8 @@ export class MenuComponent implements OnInit {
         { title: 'Enter Now', url: '/enter', icon: 'star' },
         { title: 'My Entries', url: '/entries', icon: 'reader' },
         { title: 'My Orders', url: '/orders', icon: 'wallet' },
+        { title: 'My Company', url: '/company', icon: 'business' },
+        { title: 'My Account', url: '/account', icon: 'person' },
     ];
 
     constructor(private authService: AuthService, private router: Router) {}
