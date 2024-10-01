@@ -21,7 +21,7 @@ export class AuthGuardService {
     }
 
     checkLogin(url: string): boolean {
-        if (this.authService.isLoggedIn()) {
+        if (this.authService.getToken()) {
             return true;
         } else {
             // Navigate to the login page with extras

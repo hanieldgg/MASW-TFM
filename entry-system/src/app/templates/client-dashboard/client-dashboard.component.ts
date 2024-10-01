@@ -28,10 +28,6 @@ export class ClientDashboardComponent implements OnInit {
     }
 
     checkAuthentication() {
-        this.authService.isLoggedIn().subscribe((isLoggedIn) => {
-            if (!isLoggedIn) {
-                this.router.navigate(['/login']);
-            }
-        });
+        this.authService.isLoggedIn();
     }
 }

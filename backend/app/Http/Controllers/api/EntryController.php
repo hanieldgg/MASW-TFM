@@ -34,74 +34,78 @@ class EntryController extends Controller {
 
 	public function create( Request $request ) {
 
-		$entries = $request->entries;
+		$user = Auth::user();
 
-		if ( $entries ) {
+		if ( $user ) {
 
-			$created_entries = [];
+			$entries = $request->entries;
 
-			foreach ( $entries as $entry ) {
+			if ( $entries ) {
+
+				$created_entries = [];
+
+				foreach ( $entries as $entry ) {
 
 
-				$validator = Validator::make( $entry, [ 
-					'title' => [ 'required', 'string', 'max:30' ],
-					'entry_category' => [ 'required', 'numeric', Rule::exists( 'entry_categories', 'id' ) ],
-					'description' => [ 'nullable', 'string', 'max:255' ],
-				] );
+					$validator = Validator::make( $entry, [ 
+						'title' => [ 'required', 'string', 'max:30' ],
+						'entry_category' => [ 'required', 'numeric', Rule::exists( 'entry_categories', 'id' ) ],
+						'description' => [ 'nullable', 'string', 'max:255' ],
+					] );
 
-				if ( $validator->fails() ) {
+					if ( $validator->fails() ) {
+						return response()->json( [ 
+							'status' => 422,
+							'error' => $validator->messages()
+						], 422 );
+					}
+
+					$args = [ 
+						'title' => $entry['title'],
+						'entry_category_id' => $entry['entry_category'],
+					];
+
+					if ( isset( $entry['description'] ) ) {
+						$args['description'] = trim( $entry['description'] );
+					}
+
+
+					$args['user_id'] = $user->id;
+					$args['payment_status'] = "unpaid";
+					$args['judgement_status'] = "to_be";
+					$args['score'] = 0;
+					$args['winner_status'] = "none";
+
+					$entry = Entry::create( $args );
+
+					if ( $entry ) {
+						$created_entries[] = $entry;
+					}
+				}
+
+				if ( $created_entries && sizeof( $created_entries ) > 0 ) {
+
 					return response()->json( [ 
-						'status' => 422,
-						'error' => $validator->messages()
-					], 422 );
+						'status' => 200,
+						'message' => 'Entry successfully created',
+						'data' => $created_entries
+					], 200 );
+
+				} else {
+					return response()->json( [ 
+						'status' => 500,
+						'error' => 'Something went wrong'
+					], 500 );
 				}
-
-				$args = [ 
-					'title' => $entry['title'],
-					'entry_category_id' => $entry['entry_category'],
-				];
-
-				if ( isset( $entry['description'] ) ) {
-					$args['description'] = trim( $entry['description'] );
-				}
-
-				/**
-				 * TODO: Connect user_id
-				 */
-				$args['user_id'] = 1;
-				$args['payment_status'] = "unpaid";
-				$args['judgement_status'] = "to_be";
-				$args['score'] = 0;
-				$args['winner_status'] = "none";
-
-				$entry = Entry::create( $args );
-
-				if ( $entry ) {
-					$created_entries[] = $entry;
-				}
-			}
-
-			if ( $created_entries && sizeof( $created_entries ) > 0 ) {
-
-				return response()->json( [ 
-					'status' => 200,
-					'message' => 'Entry successfully created',
-					'data' => $created_entries
-				], 200 );
 
 			} else {
 				return response()->json( [ 
-					'status' => 500,
-					'error' => 'Something went wrong'
-				], 500 );
+					'status' => 400,
+					'error' => 'Bad Request'
+				], 422 );
 			}
-
-		} else {
-			return response()->json( [ 
-				'status' => 400,
-				'error' => 'Bad Request'
-			], 422 );
 		}
+
 	}
 
 	public function find( $id ) {
@@ -281,16 +285,22 @@ class EntryController extends Controller {
 
 	}
 
-	public function indexUnpaidEntries( $userID ) {
+	public function indexUnpaidEntries() {
 
-		$entries = Entry::where( 'user_id', $userID )->where( 'payment_status', 'unpaid' )->get();
+		$user = Auth::user();
 
-		$data = [ 
-			'status' => 200,
-			'data' => $entries
-		];
+		if ( $user ) {
 
-		return response()->json( $data, 200 );
+			$entries = Entry::where( 'user_id', $user->id )->where( 'payment_status', 'unpaid' )->get();
+
+			$data = [ 
+				'status' => 200,
+				'data' => $entries
+			];
+
+			return response()->json( $data, 200 );
+		}
+
 
 	}
 

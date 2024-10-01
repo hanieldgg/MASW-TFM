@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, take, map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    private apiUrl = 'http://localhost:8000/api/auth';
-    private readonly TOKEN_KEY = 'auth_token';
+    private url = 'http://localhost:8000/api/auth';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private router: Router) {}
 
     public login(credentials: { email: string; password: string }) {
-        return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+        return this.http.post(this.url + '/login', credentials).pipe(
             tap((response: any) => {
                 if (response.token) {
                     this.setToken(response.token);
@@ -23,42 +23,13 @@ export class AuthService {
     }
 
     public register(userData: any) {
-        return this.http.post(`${this.apiUrl}/register`, userData);
+        return this.http.post(this.url + '/register', userData);
     }
 
     public validateToken(): Observable<any> {
-        return this.http.get(`${this.apiUrl}/validate`, {
+        return this.http.get(this.url + '/validate', {
             headers: this.getHeaders(),
         });
-    }
-
-    public isLoggedIn(): Observable<boolean> {
-        const tokenData = JSON.parse(this.getToken());
-
-        if (!tokenData) {
-            return of(false);
-        }
-
-        const now = new Date();
-        const createdAt = new Date(tokenData.createdAt);
-        // const expirationTime = 5 * 60 * 1000;
-        const expirationTime = 5 * 1000;
-        const isValid = now.getTime() - createdAt.getTime() < expirationTime;
-
-        if (isValid) {
-            return of(true);
-        } else {
-            return this.validateToken().pipe(
-                take(1),
-                tap((info: any) => {
-                    if (info.status === 200) {
-                        // console.log('Token is valid');
-                    }
-                }),
-                map(() => true),
-                catchError(() => of(false))
-            );
-        }
     }
 
     public setToken(token: string) {
@@ -77,6 +48,50 @@ export class AuthService {
             return localStorage.getItem('authToken');
         }
         return null;
+    }
+
+    public logout() {
+        localStorage.removeItem('authToken');
+    }
+
+    public isLoggedIn(): void {
+        const tokenData = JSON.parse(this.getToken());
+
+        if (!tokenData) {
+            this.router.navigate(['/login']);
+        }
+
+        const now = new Date();
+        const createdAt = new Date(tokenData.createdAt);
+        // const expirationTime = 5 * 60 * 1000;
+        const expirationTime = 5 * 1000;
+        const isValid = now.getTime() - createdAt.getTime() < expirationTime;
+
+        if (!isValid) {
+            this.validateToken().subscribe({
+                next: (info: any) => {
+                    if (info.status == 200) {
+                        this.setToken(tokenData.token);
+                    }
+                },
+                error: (error: any) => {
+                    this.router.navigate(['/login']);
+                },
+            });
+
+            // this.router.navigate(['/login']);
+        }
+
+        // this.http.get<boolean>(url + 'api/condition').subscribe(
+        //     (result) => {
+        //         // Call the callback with the result
+        //         callback(result);
+        //     },
+        //     (error) => {
+        //         console.error('Error fetching condition:', error);
+        //         callback(false); // or handle the error appropriately
+        //     }
+        // );
     }
 
     public getHeaders(): HttpHeaders {

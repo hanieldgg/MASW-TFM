@@ -20,11 +20,8 @@ return new class extends Migration {
 			$table->string( 'winner_status' );
 			$table->text( 'description' )->nullable();
 
-			/**
-			 * TODO: Remove nullable from user_id
-			 */
-			// $table->foreignId( 'user_id' )->constrained( 'users' );
-			$table->foreignId( 'user_id' )->integer();
+
+			$table->foreignId( 'user_id' )->constrained( 'users' );
 			$table->foreignId( 'order_id' )->nullable()->constrained( 'orders' );
 			$table->foreignId( 'entry_category_id' )->constrained( 'entry_categories' );
 

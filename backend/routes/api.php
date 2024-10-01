@@ -45,7 +45,7 @@ Route::middleware( 'auth:sanctum' )->group( function () {
 	Route::put( 'entries/{id}', [ EntryController::class, 'update' ] );
 	Route::delete( 'entries/{id}', [ EntryController::class, 'delete' ] );
 	Route::get( 'entries/user/all', [ EntryController::class, 'indexByUser' ] );
-	Route::get( 'entries/unpaid/user/{userID}', [ EntryController::class, 'indexUnpaidEntries' ] );
+	Route::get( 'entries/unpaid/user', [ EntryController::class, 'indexUnpaidEntries' ] );
 
 	// Braintree routes
 	Route::get( 'client_token', [ BraintreeController::class, 'getClientToken' ] );

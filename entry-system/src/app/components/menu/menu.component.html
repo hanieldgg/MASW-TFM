@@ -3,10 +3,8 @@
         <ion-list id="inbox-list">
             <ion-list-header>MarCom Awards</ion-list-header>
 
-            <ion-menu-toggle
-                auto-hide="false"
-                *ngFor="let p of appPages; let i = index"
-            >
+            <ion-menu-toggle auto-hide="false">
+                @for(p of appPages; track $index){
                 <ion-item
                     routerDirection="root"
                     [routerLink]="[p.url]"
@@ -21,6 +19,21 @@
                         [md]="p.icon + '-sharp'"
                     ></ion-icon>
                     <ion-label>{{ p.title }}</ion-label>
+                </ion-item>
+                }
+                <ion-item
+                    [button]="true"
+                    (click)="logout()"
+                    lines="none"
+                    detail="false"
+                >
+                    <ion-icon
+                        aria-hidden="true"
+                        slot="start"
+                        [ios]="'exit-outline'"
+                        [md]="'exit-sharp'"
+                    ></ion-icon>
+                    <ion-label>Logout</ion-label>
                 </ion-item>
             </ion-menu-toggle>
         </ion-list>
