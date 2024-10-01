@@ -1,3 +1,98 @@
-<p>
-  register works!
-</p>
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Register</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">Register</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Name</ion-label>
+                        <ion-input
+                            type="text"
+                            name="name"
+                            [(ngModel)]="user.name"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Email</ion-label>
+                        <ion-input
+                            type="email"
+                            name="email"
+                            [(ngModel)]="user.email"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Company Name</ion-label>
+                        <ion-input
+                            type="text"
+                            name="company"
+                            [(ngModel)]="user.company"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Address</ion-label>
+                        <ion-input
+                            type="text"
+                            name="address"
+                            [(ngModel)]="user.address"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Password</ion-label>
+                        <ion-input
+                            type="password"
+                            name="password"
+                            [(ngModel)]="user.password"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div id="buttons">
+                        <ion-button
+                            type="submit"
+                            [disabled]="!registrationForm.form.valid"
+                            >Register</ion-button
+                        >
+
+                        <ion-button fill="clear" (click)="navigateToLogin()"
+                            >Already have an account? Login here</ion-button
+                        >
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

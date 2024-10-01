@@ -36,9 +36,14 @@
                 ></ion-input>
             </ion-item>
 
-            <ion-button type="submit" [disabled]="!loginForm.valid"
-                >Login</ion-button
-            >
+            <div id="buttons">
+                <ion-button type="submit" [disabled]="!loginForm.valid"
+                    >Login</ion-button
+                >
+                <ion-button (click)="navigateToRegister()" fill="clear"
+                    >Don't have an account? Register here</ion-button
+                >
+            </div>
         </form>
     </div>
 </ion-content>

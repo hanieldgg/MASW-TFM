@@ -76,6 +76,7 @@ export class AuthService {
                 },
                 error: (error: any) => {
                     this.router.navigate(['/login']);
+                    localStorage.removeItem('authToken');
                 },
             });
 

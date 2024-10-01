@@ -34,11 +34,18 @@ export class LoginComponent implements OnInit {
         this.login();
     }
 
+    navigateToRegister() {
+        this.router.navigate(['/register']);
+    }
+
     login() {
         let credentials = { email: this.email, password: this.password };
 
         this.authService.login(credentials).subscribe({
             next: (info) => {
+                this.email = '';
+                this.password = '';
+
                 this.router.navigate(['/account']);
             },
             error: (error) => {

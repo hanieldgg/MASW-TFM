@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -25,16 +27,25 @@ class AuthController extends Controller {
 		$request->validate( [ 
 			'name' => 'required|string|max:255',
 			'email' => 'required|string|email|max:255|unique:users',
-			'password' => 'required|string|min:8|confirmed',
+			'password' => 'required|string|min:8',
+			'company' => 'required|string',
+			'address' => 'required|string|min:8',
+		] );
+
+		$company = Company::create( [ 
+			'name' => $request->company,
+			'address' => $request->address,
 		] );
 
 		$user = User::create( [ 
 			'name' => $request->name,
 			'email' => $request->email,
+			'capabilities' => "entrant",
+			'company_id' => $company->id,
 			'password' => Hash::make( $request->password ),
 		] );
 
-		return response()->json( [ 'token' => $user->createToken( 'token_name' )->plainTextToken ] );
+		return response()->json( [ 'status' => 200, 'token' => $user->createToken( 'API Token' )->plainTextToken ] );
 	}
 
 	public function validateToken( Request $request ) {
