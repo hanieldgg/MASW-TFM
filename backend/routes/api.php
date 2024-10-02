@@ -54,4 +54,8 @@ Route::middleware( 'auth:sanctum' )->group( function () {
 
 	// Orders routes
 	Route::post( 'orders', [ OrderController::class, 'getUserOrders' ] );
+
+	// File Upload routes
+	Route::post( 'upload', [ FileController::class, 'upload' ] );
+	Route::post( 'upload/list', [ FileController::class, 'listFiles' ] );
 } );

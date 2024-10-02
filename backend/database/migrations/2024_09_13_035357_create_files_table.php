@@ -14,6 +14,7 @@ return new class extends Migration {
 
 			$table->string( 'file_name' );
 			$table->string( 'file_url' )->unique();
+			$table->string( 'file_type' );
 
 			$table->foreignId( 'entry_id' )->constrained( 'entries' );
 

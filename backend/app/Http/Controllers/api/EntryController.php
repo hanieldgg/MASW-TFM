@@ -128,53 +128,66 @@ class EntryController extends Controller {
 
 	public function update( Request $request, $id ) {
 
-		$validator = Validator::make( $request->all(), [ 
-			'entry_category' => [ 'numeric', Rule::exists( 'entry_categories', 'id' ) ],
-			'description' => [ 'string', 'max:255' ],
-		] );
+		$user = Auth::user();
 
-		if ( $validator->fails() ) {
-			return response()->json( [ 
-				'status' => 422,
-				'error' => $validator->messages()
-			], 422 );
-		} else {
+		if ( $user ) {
 
-			$entry = Entry::find( $id );
+			$validator = Validator::make( $request->all(), [ 
+				'entry_category' => [ 'numeric', Rule::exists( 'entry_categories', 'id' ) ],
+				'description' => [ 'string', 'max:255' ],
+			] );
 
-			if ( $entry ) {
-
-				$args = [];
-
-				if ( $request->has( 'entry_category' ) ) {
-					$args['entry_category'] = trim( $request->entry_category );
-				}
-
-				if ( $request->has( 'description' ) ) {
-					$args['description'] = trim( $request->description );
-				}
-
-				if ( empty( $args ) ) {
-					return response()->json( [ 
-						'status' => 400,
-						'error' => 'No parameters provided',
-					], 400 );
-				}
-
-				$entry->update( $args );
-
+			if ( $validator->fails() ) {
 				return response()->json( [ 
-					'status' => 200,
-					'message' => 'Entry updated',
-					'data' => $entry
-				], 200 );
+					'status' => 422,
+					'error' => $validator->messages()
+				], 422 );
 			} else {
-				return response()->json( [ 
-					'status' => 404,
-					'error' => 'Entry not found',
-				], 404 );
+
+				$entry = Entry::find( $id );
+
+				if ( $entry ) {
+
+					$args = [];
+
+					if ( $request->has( 'entry_category' ) ) {
+						$args['entry_category'] = trim( $request->entry_category );
+					}
+
+					if ( $request->has( 'description' ) ) {
+						$args['description'] = trim( $request->description );
+					}
+
+					if ( empty( $args ) ) {
+						return response()->json( [ 
+							'status' => 400,
+							'error' => 'No parameters provided',
+						], 400 );
+					}
+
+					$entry->update( $args );
+
+					return response()->json( [ 
+						'status' => 200,
+						'message' => 'Entry updated',
+						'data' => $entry
+					], 200 );
+				} else {
+					return response()->json( [ 
+						'status' => 404,
+						'error' => 'Entry not found',
+					], 404 );
+				}
 			}
+		} else {
+			$data = [ 
+				'status' => 401,
+				'message' => 'Unauthorized'
+			];
+			return response()->json( $data, 401 );
 		}
+
+
 	}
 
 	public function delete( $id ) {

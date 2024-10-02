@@ -22,6 +22,12 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer update
 RUN composer install
 
+# Set PHP configuration
+RUN echo "upload_max_filesize = 32M" >> /usr/local/etc/php/conf.d/uploads.ini \
+&& echo "post_max_size = 32M" >> /usr/local/etc/php/conf.d/uploads.ini
+
+RUN php artisan storage:link
+
 # Expose port 8000 for PHP Artisan Serve
 EXPOSE 8000
 

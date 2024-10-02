@@ -10,6 +10,47 @@
 
     <ion-card-content>
         {{ entry.description }}
+        @if(files.length > 0){
+        <ion-list lines="none">
+            @for( file of files; track $index ){
+            <ion-item
+                [button]="true"
+                detail="false"
+                (click)="toggleMediaModal(file)"
+            >
+                <ion-icon
+                    aria-hidden="true"
+                    name="document-text"
+                    slot="start"
+                ></ion-icon>
+                <ion-label>{{ file.file_name }}</ion-label>
+            </ion-item>
+            }
+        </ion-list>
+
+        <ion-modal [isOpen]="isModalOpen">
+            <ng-template>
+                <ion-header>
+                    <ion-toolbar>
+                        <ion-title>{{ openedFile.file_name }}</ion-title>
+                        <ion-buttons slot="end">
+                            <ion-button (click)="setOpen(false)"
+                                >Close</ion-button
+                            >
+                        </ion-buttons>
+                    </ion-toolbar>
+                </ion-header>
+                <ion-content class="ion-padding">
+                    @if(openedFile.file_type.includes("image")){
+                    <img
+                        src="{{ openedFile.file_url }}"
+                        alt="{{ openedFile.file_name }}"
+                    />
+                    }
+                </ion-content>
+            </ng-template>
+        </ion-modal>
+        }
     </ion-card-content>
 
     @if(!checkout){
@@ -24,7 +65,14 @@
     <div>
         @if( entry.winner_status == "none" && entry.payment_status == "paid" &&
         entry.judgement_status == "to_be" ){
-        <ion-button fill="clear">Upload Files</ion-button>
+        <input
+            id="fileUploader"
+            type="file"
+            (change)="onFileSelected($event)"
+        />
+        <ion-button (click)="uploadFiles()" fill="clear"
+            >Upload Files</ion-button
+        >
         }
     </div>
 

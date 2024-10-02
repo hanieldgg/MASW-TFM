@@ -1,44 +1,44 @@
 services:
-    # app:
-    #     build:
-    #         context: ./backend
-    #         dockerfile: Dockerfile
-    #     container_name: laravel-app
-    #     ports:
-    #         - "8000:8000"
-    #     volumes:
-    #         - ./backend:/var/www/html
-    #     networks:
-    #         - app-network
-
-    ionic:
+    app:
         build:
-            context: ./entry-system
+            context: ./backend
             dockerfile: Dockerfile
-        container_name: entry-system
+        container_name: laravel-app
         ports:
-            - "8100:8100"
+            - "8000:8000"
         volumes:
-            - ./entry-system:/usr/src/app
+            - ./backend:/var/www/html
         networks:
             - app-network
 
-    # db:
-    #     image: mysql:8
-    #     container_name: mysql-db
-    #     environment:
-    #         MYSQL_ROOT_PASSWORD: root
-    #         MYSQL_DATABASE: laravel
+    # ionic:
+    #     build:
+    #         context: ./entry-system
+    #         dockerfile: Dockerfile
+    #     container_name: entry-system
     #     ports:
-    #         - "3306:3306"
+    #         - "8100:8100"
     #     volumes:
-    #         - dbdata:/var/lib/mysql
+    #         - ./entry-system:/usr/src/app
     #     networks:
     #         - app-network
+
+    db:
+        image: mysql:8
+        container_name: mysql-db
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: laravel
+        ports:
+            - "3306:3306"
+        volumes:
+            - dbdata:/var/lib/mysql
+        networks:
+            - app-network
 
 networks:
     app-network:
         driver: bridge
 
-# volumes:
-    # dbdata:
+volumes:
+    dbdata:
