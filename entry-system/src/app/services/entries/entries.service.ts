@@ -13,25 +13,25 @@ export class EntryService {
         this.headers = this.authService.getHeaders();
     }
 
-    public getEntries(): Observable<any> {
-        return this.http.get(this.url, { headers: this.headers });
-    }
+    // public getEntries(): Observable<any> {
+    //     return this.http.get(this.url, { headers: this.headers });
+    // }
 
-    public findEntry(id: number): Observable<any> {
-        return this.http.get(this.url + '/' + id, { headers: this.headers });
-    }
+    // public findEntry(id: number): Observable<any> {
+    //     return this.http.get(this.url + '/' + id, { headers: this.headers });
+    // }
 
     public createEntry(params: any): Observable<any> {
         return this.http.post(this.url, params, { headers: this.headers });
     }
 
-    public updateEntry(params: any, id: number): Observable<any> {
-        return this.http.put(
-            this.url + '/' + id,
-            {},
-            { headers: this.headers }
-        );
-    }
+    // public updateEntry(params: any, id: number): Observable<any> {
+    //     return this.http.put(
+    //         this.url + '/' + id,
+    //         {},
+    //         { headers: this.headers }
+    //     );
+    // }
 
     public deleteEntry(id: number): Observable<any> {
         return this.http.delete(this.url + '/' + id, { headers: this.headers });

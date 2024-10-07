@@ -4,6 +4,9 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Entry;
 
+use App\Http\Controllers\api\EntryCategoryController;
+
+use App\Models\File;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,20 +18,31 @@ use Illuminate\Support\Facades\Validator;
 class EntryController extends Controller {
 
 	public function index() {
-		$entries = Entry::all();
 
-		if ( $entries->count() > 0 ) {
-			$data = [ 
-				'status' => 200,
-				'data' => $entries
-			];
-			return response()->json( $data, 200 );
+		$user = Auth::user();
+
+		if ( $user && $user->capabilities == 'administrator' ) {
+			$entries = Entry::all();
+
+			if ( $entries->count() > 0 ) {
+				$data = [ 
+					'status' => 200,
+					'data' => $entries
+				];
+				return response()->json( $data, 200 );
+			} else {
+				$data = [ 
+					'status' => 404,
+					'message' => 'No entries found'
+				];
+				return response()->json( $data, 404 );
+			}
 		} else {
 			$data = [ 
-				'status' => 404,
-				'message' => 'No entries found'
+				'status' => 401,
+				'message' => 'Unauthorized'
 			];
-			return response()->json( $data, 404 );
+			return response()->json( $data, 401 );
 		}
 	}
 
@@ -104,25 +118,41 @@ class EntryController extends Controller {
 					'error' => 'Bad Request'
 				], 422 );
 			}
+		} else {
+			$data = [ 
+				'status' => 401,
+				'message' => 'Unauthorized'
+			];
+			return response()->json( $data, 401 );
 		}
-
 	}
 
 	public function find( $id ) {
-		$entry = Entry::find( $id );
 
-		if ( $entry ) {
-			$data = [ 
-				'status' => 200,
-				'data' => $entry
-			];
-			return response()->json( $data, 200 );
+		$user = Auth::user();
+
+		if ( $user ) {
+			$entry = Entry::find( $id );
+
+			if ( $entry ) {
+				$data = [ 
+					'status' => 200,
+					'data' => $entry
+				];
+				return response()->json( $data, 200 );
+			} else {
+				$data = [ 
+					'status' => 404,
+					'message' => 'No entry found'
+				];
+				return response()->json( $data, 404 );
+			}
 		} else {
 			$data = [ 
-				'status' => 404,
-				'message' => 'No entry found'
+				'status' => 401,
+				'message' => 'Unauthorized'
 			];
-			return response()->json( $data, 404 );
+			return response()->json( $data, 401 );
 		}
 	}
 
@@ -130,7 +160,7 @@ class EntryController extends Controller {
 
 		$user = Auth::user();
 
-		if ( $user ) {
+		if ( $user && $user->capabilities == 'administrator' ) {
 
 			$validator = Validator::make( $request->all(), [ 
 				'entry_category' => [ 'numeric', Rule::exists( 'entry_categories', 'id' ) ],
@@ -157,6 +187,61 @@ class EntryController extends Controller {
 					if ( $request->has( 'description' ) ) {
 						$args['description'] = trim( $request->description );
 					}
+
+					if ( empty( $args ) ) {
+						return response()->json( [ 
+							'status' => 400,
+							'error' => 'No parameters provided',
+						], 400 );
+					}
+
+					$entry->update( $args );
+
+					return response()->json( [ 
+						'status' => 200,
+						'message' => 'Entry updated',
+						'data' => $entry
+					], 200 );
+				} else {
+					return response()->json( [ 
+						'status' => 404,
+						'error' => 'Entry not found',
+					], 404 );
+				}
+			}
+		} else {
+			$data = [ 
+				'status' => 401,
+				'message' => 'Unauthorized'
+			];
+			return response()->json( $data, 401 );
+		}
+
+
+	}
+
+	public function updateScore( Request $request, $id ) {
+
+		$user = Auth::user();
+
+		if ( $user && $user->capabilities == 'administrator' ) {
+
+			$validator = Validator::make( $request->all(), [ 
+				'score' => [ 'numeric', 'required' ],
+			] );
+
+			if ( $validator->fails() ) {
+				return response()->json( [ 
+					'status' => 422,
+					'error' => $validator->messages()
+				], 422 );
+			} else {
+
+				$entry = Entry::find( $id );
+
+				if ( $entry ) {
+
+					$args['score'] = $request->score;
 
 					if ( empty( $args ) ) {
 						return response()->json( [ 
@@ -316,6 +401,12 @@ class EntryController extends Controller {
 				];
 				return response()->json( $data, 404 );
 			}
+		} else {
+			$data = [ 
+				'status' => 401,
+				'message' => 'Unauthorized'
+			];
+			return response()->json( $data, 401 );
 		}
 
 	}
@@ -334,9 +425,56 @@ class EntryController extends Controller {
 			];
 
 			return response()->json( $data, 200 );
+		} else {
+			$data = [ 
+				'status' => 401,
+				'message' => 'Unauthorized'
+			];
+			return response()->json( $data, 401 );
 		}
 
 
+	}
+
+	public function dashboardMeta( $entryID ) {
+		$user = Auth::user();
+
+		if ( $user && $user->capabilities == "administrator" ) {
+
+			$entry = Entry::find( $entryID );
+
+			if ( $entry ) {
+
+				$data = array();
+
+				$author = User::find( $entry->user_id );
+				$data['user'] = $author->name;
+
+				$EntryCategoryController = new EntryCategoryController;
+				$data['category'] = $EntryCategoryController->getFullCategory( $entry->entry_category_id )->original['data'];
+
+				$data['files'] = File::where( [ 'entry_id' => $entryID ] )->get();
+
+				$data = [ 
+					'status' => 200,
+					'data' => $data
+				];
+
+				return response()->json( $data, 200 );
+			} else {
+				$data = [ 
+					'status' => 404,
+					'message' => 'Not Found'
+				];
+				return response()->json( $data, 401 );
+			}
+		} else {
+			$data = [ 
+				'status' => 401,
+				'message' => 'Unauthorized'
+			];
+			return response()->json( $data, 401 );
+		}
 	}
 
 }

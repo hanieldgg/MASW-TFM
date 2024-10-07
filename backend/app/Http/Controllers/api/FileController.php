@@ -38,7 +38,7 @@ class FileController extends Controller {
 					$new_file = File::create(
 						array(
 							'file_name' => $originalName,
-							'file_url' => "http://localhost:8000/" . $path,
+							'file_url' => "http://localhost:8000/storage/" . $path,
 							'entry_id' => $request->entryID,
 							'file_type' => $fileType
 						)

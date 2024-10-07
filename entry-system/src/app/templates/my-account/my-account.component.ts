@@ -27,7 +27,6 @@ export class MyAccountComponent implements OnInit {
         this.authService.getProfile().subscribe({
             next: (info) => {
                 if (info.status == 200) {
-                    console.log(info.data);
                     this.user = info.data;
                 }
             },
@@ -41,7 +40,7 @@ export class MyAccountComponent implements OnInit {
         this.authService.updateProfile(this.user).subscribe({
             next: (info) => {
                 if (info.status == 200) {
-                    console.log('Updated');
+                    // console.log('Updated');
                 }
             },
             error: (error) => {

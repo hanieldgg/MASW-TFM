@@ -27,46 +27,16 @@
             </ion-item>
             }
         </ion-list>
-
-        <ion-modal [isOpen]="isModalOpen">
-            <ng-template>
-                <ion-header>
-                    <ion-toolbar>
-                        <ion-title>{{ openedFile.file_name }}</ion-title>
-                        <ion-buttons slot="end">
-                            <ion-button (click)="setOpen(false)"
-                                >Close</ion-button
-                            >
-                        </ion-buttons>
-                    </ion-toolbar>
-                </ion-header>
-                <ion-content class="ion-padding">
-                    @if(openedFile.file_type.includes("image")){
-                    <img
-                        src="{{ openedFile.file_url }}"
-                        alt="{{ openedFile.file_name }}"
-                    />
-                    }
-                </ion-content>
-            </ng-template>
-        </ion-modal>
         }
     </ion-card-content>
 
     @if(!checkout){
-    <div>
-        @if( entry.winner_status != "none" && entry.payment_status == "paid" &&
-        entry.judgement_status == "judged" ){
-        <ion-button fill="clear">Order Certificate</ion-button>
-        <ion-button fill="clear">Buy Statuette</ion-button>
-        }
-    </div>
 
     <div>
         @if( entry.winner_status == "none" && entry.payment_status == "paid" &&
         entry.judgement_status == "to_be" ){
         <input
-            id="fileUploader"
+            id="fileUploader-{{ entry.id }}"
             type="file"
             (change)="onFileSelected($event)"
         />

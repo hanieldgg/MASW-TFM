@@ -1,0 +1,28 @@
+#dashboard-container #grid-header {
+	margin-bottom: 20px;
+}
+
+#dashboard-container {
+	padding-top: 50px;
+	padding-bottom: 120px;
+	max-width: 90vw;
+	margin: 0 auto;
+}
+
+#dashboard-container ion-col {
+	text-align: center;
+}
+
+#dashboard-container ion-input {
+	border: 1px solid black;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#dashboard-container ion-row {
+	margin-bottom: 15px;
+}
+
+#dashboard-container ion-select {
+	justify-content: center;
+}

@@ -122,7 +122,7 @@ export class EntryCardComponent implements OnInit {
     }
 
     uploadFiles() {
-        const button = document.getElementById('fileUploader');
+        const button = document.getElementById('fileUploader-' + this.entry.id);
 
         button?.click();
     }
@@ -132,10 +132,7 @@ export class EntryCardComponent implements OnInit {
         this.openedFile.file_type = file.file_type;
         this.openedFile.file_url = file.file_url;
 
-        if (this.openedFile.file_type.includes('image')) {
-            this.setOpen(true);
-        } else {
-            window.open(this.openedFile.file_url, '_system');
-        }
+        // window.open(this.openedFile.file_url, '_system');
+        window.open(this.openedFile.file_url, '_blank');
     }
 }

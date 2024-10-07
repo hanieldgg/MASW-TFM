@@ -75,8 +75,8 @@ export class AuthService {
 
         const now = new Date();
         const createdAt = new Date(tokenData.createdAt);
-        // const expirationTime = 5 * 60 * 1000;
-        const expirationTime = 5 * 1000;
+        const expirationTime = 5 * 60 * 1000;
+        // const expirationTime = 5 * 1000;
         const isValid = now.getTime() - createdAt.getTime() < expirationTime;
 
         if (!isValid) {
