@@ -11,18 +11,6 @@ services:
         networks:
             - app-network
 
-    # ionic:
-    #     build:
-    #         context: ./entry-system
-    #         dockerfile: Dockerfile
-    #     container_name: entry-system
-    #     ports:
-    #         - "8100:8100"
-    #     volumes:
-    #         - ./entry-system:/usr/src/app
-    #     networks:
-    #         - app-network
-
     db:
         image: mysql:8
         container_name: mysql-db
