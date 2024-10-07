@@ -24,6 +24,28 @@ services:
         networks:
             - app-network
 
+    angular:
+        build:
+            context: ./entry-system # Adjust if needed
+        container_name: entry-system
+        ports:
+            - "8100:80"
+        networks:
+            - app-network
+        volumes:
+            - angulardata:/app
+
+    react:
+        build:
+            context: ./entry-system-admin # Adjust if needed
+        container_name: entry-system-admin
+        ports:
+            - "8101:80"
+        networks:
+            - app-network
+        volumes:
+            - reactdata:/admin
+
 networks:
     app-network:
         driver: bridge
@@ -31,3 +53,5 @@ networks:
 volumes:
     appdata:
     dbdata:
+    angulardata:
+    reactdata:
