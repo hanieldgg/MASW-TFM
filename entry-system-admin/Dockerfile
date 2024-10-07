@@ -1,8 +1,8 @@
-# Base image
-FROM node:18-alpine
+# Stage 1: Build the app
+FROM node:20 AS build
 
 # Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Install Ionic CLI globally
 RUN npm install -g @ionic/cli
@@ -10,20 +10,23 @@ RUN npm install -g @ionic/cli
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Remove node_modules folder
-RUN rm -rf node_modules
-
-# Remove package-lock.json file
-RUN rm package-lock.json
-
 # Install dependencies
 RUN npm install
 
-# Copy the entire project
+# Copy the rest of the application code
 COPY . .
 
-# Expose the Ionic development port
-EXPOSE 8100
+# Build the Ionic app
+RUN ionic build --prod
 
-# Command to run the Ionic React app
-CMD ["ionic", "serve", "--host=localhost", "--port=8100"]
+# Stage 2: Serve the app using a lightweight web server
+FROM nginx:alpine
+
+# Copy the built app from the previous stage
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
