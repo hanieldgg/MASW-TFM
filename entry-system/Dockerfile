@@ -8,7 +8,7 @@ WORKDIR /app
 RUN npm install -g @ionic/cli
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package*.json ./ 
 
 # Install dependencies
 RUN npm install
@@ -24,6 +24,9 @@ FROM nginx:alpine
 
 # Copy the built app from the previous stage
 COPY --from=build /app/www /usr/share/nginx/html
+
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80
 EXPOSE 80

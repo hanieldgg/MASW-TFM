@@ -242,6 +242,11 @@ class EntryController extends Controller {
 				if ( $entry ) {
 
 					$args['score'] = $request->score;
+					$args['judgement_status'] = 'judged';
+
+					if ( $request->score > 80 ) {
+						$args['winner_status'] = 'gold';
+					}
 
 					if ( empty( $args ) ) {
 						return response()->json( [ 
